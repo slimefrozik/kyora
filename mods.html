@@ -1,24 +1,23 @@
-п»ї<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RusLand вЂ” Р РµРєРѕРјРµРЅРґРѕРІР°РЅРЅС‹Рµ РјРѕРґС‹</title>
-  <meta name="description" content="РўРѕРї РїРѕР»РµР·РЅС‹С… РјРѕРґРѕРІ СЃ Modrinth РґР»СЏ РёРіСЂРѕРєРѕРІ RusLand: FPS, QoL, РєР°СЂС‚Р°, РІРёР·СѓР°Р», РєРѕРЅС‚РµРЅС‚.">
+  <title>RusLand — Рекомендованные моды</title>
+  <meta name="description" content="Топ полезных модов с Modrinth для игроков RusLand: FPS, QoL, карта, визуал, контент.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="RusLand вЂ” Р РµРєРѕРјРµРЅРґРѕРІР°РЅРЅС‹Рµ РјРѕРґС‹">
-  <meta property="og:description" content="РџРѕРґР±РѕСЂРєР° РјРѕРґРѕРІ РґР»СЏ СЃС‚Р°Р±РёР»СЊРЅРѕР№ РёРіСЂС‹ РЅР° СЃРµСЂРІРµСЂРµ RusLand.">
+  <meta property="og:title" content="RusLand — Рекомендованные моды">
+  <meta property="og:description" content="Подборка модов для стабильной игры на сервере RusLand.">
   <meta property="og:image" content="assets/og-cover.svg">
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="RusLand вЂ” Р РµРєРѕРјРµРЅРґРѕРІР°РЅРЅС‹Рµ РјРѕРґС‹">
-  <meta property="twitter:description" content="Modrinth-РїРѕРґР±РѕСЂРєР° РґР»СЏ FPS, СѓРґРѕР±СЃС‚РІР° Рё РєРѕРЅС‚РµРЅС‚Р°.">
+  <meta property="twitter:title" content="RusLand — Рекомендованные моды">
+  <meta property="twitter:description" content="Modrinth-подборка для FPS, удобства и контента.">
   <meta property="twitter:image" content="assets/og-cover.svg">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600;700&family=Uncial+Antiqua&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
-  <script src="data/content.js" defer></script>
   <script src="data/telegram-config.js" defer></script>
   <script src="assets/app.js" defer></script>
 </head>
@@ -26,21 +25,21 @@
   <header class="site-header">
     <div class="container topbar">
       <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">RusLand</span></a>
-      <button class="menu-toggle" id="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" data-i18n="common.menu">РњРµРЅСЋ</button>
+      <button class="menu-toggle" id="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" data-i18n="common.menu">Меню</button>
       <nav class="main-nav" id="primary-nav" aria-label="Main navigation">
-        <a href="index.html" data-i18n="nav.home">Р“Р»Р°РІРЅР°СЏ</a>
-        <a href="start.html" data-i18n="nav.start">РќР°С‡Р°С‚СЊ РёРіСЂР°С‚СЊ</a>
-        <a href="mods.html" aria-current="page" data-i18n="nav.mods">РњРѕРґС‹</a>
-        <a href="updates.html" data-i18n="nav.updates">РћР±РЅРѕРІР»РµРЅРёСЏ</a>
-        <a href="challenges.html" data-i18n="nav.challenges">Р§РµР»Р»РµРЅРґР¶Рё</a>
-        <a href="rules.html" data-i18n="nav.rules">РџСЂР°РІРёР»Р°/FAQ</a>
-        <a href="plugins.html" data-i18n="nav.plugins">РџР»Р°РіРёРЅС‹</a>
+        <a href="index.html" data-i18n="nav.home">Главная</a>
+        <a href="start.html" data-i18n="nav.start">Начать играть</a>
+        <a href="mods.html" aria-current="page" data-i18n="nav.mods">Моды</a>
+        <a href="updates.html" data-i18n="nav.updates">Обновления</a>
+        <a href="challenges.html" data-i18n="nav.challenges">Челленджи</a>
+        <a href="rules.html" data-i18n="nav.rules">Правила/FAQ</a>
+        <a href="plugins.html" data-i18n="nav.plugins">Плагины</a>
       </nav>
       <div class="actions">
         <div class="lang-switch" aria-label="Language"><button type="button" data-lang-switch="ru">RU</button><button type="button" data-lang-switch="ua">UA</button></div>
-        <a class="pill-btn primary" href="index.html#apply-section" data-i18n="common.apply">РџРѕРґР°С‚СЊ Р·Р°СЏРІРєСѓ</a>
-        <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">Р’ Discord</a>
-        <button class="pill-btn" type="button" data-copy-ip data-i18n="common.copyIp">РЎРєРѕРїРёСЂРѕРІР°С‚СЊ IP</button>
+        <a class="pill-btn primary" href="index.html#apply-section" data-i18n="common.apply">Подать заявку</a>
+        <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">В Discord</a>
+        <button class="pill-btn" type="button" data-copy-ip data-i18n="common.copyIp">Скопировать IP</button>
       </div>
     </div>
   </header>
@@ -48,8 +47,8 @@
   <main>
     <section class="page-intro">
       <div class="container">
-        <h1 data-i18n="mods.title">Р РµРєРѕРјРµРЅРґРѕРІР°РЅРЅС‹Рµ РјРѕРґС‹</h1>
-        <p data-i18n="mods.subtitle">РўРѕРї РјРѕРґРѕРІ СЃ Modrinth РґР»СЏ СЃС‚Р°Р±РёР»СЊРЅРѕР№ РёРіСЂС‹, СѓРґРѕР±СЃС‚РІР° Рё РєСЂР°СЃРёРІРѕР№ РєР°СЂС‚РёРЅРєРё.</p>
+        <h1 data-i18n="mods.title">Рекомендованные моды</h1>
+        <p data-i18n="mods.subtitle">Топ модов с Modrinth для стабильной игры, удобства и красивой картинки.</p>
       </div>
     </section>
 
@@ -57,11 +56,11 @@
       <div class="container">
         <div class="filters">
           <label>
-            <span data-i18n="mods.search">РџРѕРёСЃРє РїРѕ РјРѕРґР°Рј</span>
-            <input id="mods-search" type="search" data-i18n-placeholder="mods.searchPlaceholder" placeholder="Р’РІРµРґРё РЅР°Р·РІР°РЅРёРµ РёР»Рё С‚РµРі">
+            <span data-i18n="mods.search">Поиск по модам</span>
+            <input id="mods-search" type="search" data-i18n-placeholder="mods.searchPlaceholder" placeholder="Введи название или тег">
           </label>
           <label>
-            <span data-i18n="mods.category">РљР°С‚РµРіРѕСЂРёСЏ</span>
+            <span data-i18n="mods.category">Категория</span>
             <select id="mods-category"></select>
           </label>
         </div>
@@ -73,8 +72,8 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span>В© <span data-year></span> <span data-i18n="footer.rights">RusLand Server</span></span>
-      <span data-i18n="footer.note">РЎР°Р№С‚ РґР»СЏ РЅР°Р±РѕСЂР° РёРіСЂРѕРєРѕРІ Рё Р°РєС‚СѓР°Р»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё</span>
+      <span>© <span data-year></span> <span data-i18n="footer.rights">RusLand Server</span></span>
+      <span data-i18n="footer.note">Сайт для набора игроков и актуальной информации</span>
     </div>
   </footer>
 

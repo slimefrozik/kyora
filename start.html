@@ -1,24 +1,23 @@
-п»ї<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RusLand вЂ” РќР°С‡Р°С‚СЊ РёРіСЂР°С‚СЊ</title>
-  <meta name="description" content="РџРѕС€Р°РіРѕРІС‹Р№ РѕРЅР±РѕСЂРґРёРЅРі РЅР° СЃРµСЂРІРµСЂ RusLand: РїРѕРґРєР»СЋС‡РµРЅРёРµ, РїРµСЂРІС‹Рµ 15 РјРёРЅСѓС‚, Р±С‹СЃС‚СЂС‹Р№ РІС…РѕРґ РІ СЌРєРѕРЅРѕРјРёРєСѓ Рё РєРѕРјСЊСЋРЅРёС‚Рё.">
+  <title>RusLand — Начать играть</title>
+  <meta name="description" content="Пошаговый онбординг на сервер RusLand: подключение, первые 15 минут, быстрый вход в экономику и комьюнити.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="RusLand вЂ” РќР°С‡Р°С‚СЊ РёРіСЂР°С‚СЊ">
-  <meta property="og:description" content="РџСЂРѕСЃС‚РѕР№ РіР°Р№Рґ РґР»СЏ РІС…РѕРґР° РЅР° СЃРµСЂРІРµСЂ Рё СЃС‚Р°СЂС‚Р° РІ РїРµСЂРІС‹Рµ 15 РјРёРЅСѓС‚.">
+  <meta property="og:title" content="RusLand — Начать играть">
+  <meta property="og:description" content="Простой гайд для входа на сервер и старта в первые 15 минут.">
   <meta property="og:image" content="assets/og-cover.svg">
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="RusLand вЂ” РќР°С‡Р°С‚СЊ РёРіСЂР°С‚СЊ">
-  <meta property="twitter:description" content="РџРѕС€Р°РіРѕРІС‹Р№ СЃС‚Р°СЂС‚ РґР»СЏ РЅРѕРІС‹С… РёРіСЂРѕРєРѕРІ.">
+  <meta property="twitter:title" content="RusLand — Начать играть">
+  <meta property="twitter:description" content="Пошаговый старт для новых игроков.">
   <meta property="twitter:image" content="assets/og-cover.svg">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600;700&family=Uncial+Antiqua&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
-  <script src="data/content.js" defer></script>
   <script src="data/telegram-config.js" defer></script>
   <script src="assets/app.js" defer></script>
 </head>
@@ -26,21 +25,21 @@
   <header class="site-header">
     <div class="container topbar">
       <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">RusLand</span></a>
-      <button class="menu-toggle" id="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" data-i18n="common.menu">РњРµРЅСЋ</button>
+      <button class="menu-toggle" id="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" data-i18n="common.menu">Меню</button>
       <nav class="main-nav" id="primary-nav" aria-label="Main navigation">
-        <a href="index.html" data-i18n="nav.home">Р“Р»Р°РІРЅР°СЏ</a>
-        <a href="start.html" aria-current="page" data-i18n="nav.start">РќР°С‡Р°С‚СЊ РёРіСЂР°С‚СЊ</a>
-        <a href="mods.html" data-i18n="nav.mods">РњРѕРґС‹</a>
-        <a href="updates.html" data-i18n="nav.updates">РћР±РЅРѕРІР»РµРЅРёСЏ</a>
-        <a href="challenges.html" data-i18n="nav.challenges">Р§РµР»Р»РµРЅРґР¶Рё</a>
-        <a href="rules.html" data-i18n="nav.rules">РџСЂР°РІРёР»Р°/FAQ</a>
-        <a href="plugins.html" data-i18n="nav.plugins">РџР»Р°РіРёРЅС‹</a>
+        <a href="index.html" data-i18n="nav.home">Главная</a>
+        <a href="start.html" aria-current="page" data-i18n="nav.start">Начать играть</a>
+        <a href="mods.html" data-i18n="nav.mods">Моды</a>
+        <a href="updates.html" data-i18n="nav.updates">Обновления</a>
+        <a href="challenges.html" data-i18n="nav.challenges">Челленджи</a>
+        <a href="rules.html" data-i18n="nav.rules">Правила/FAQ</a>
+        <a href="plugins.html" data-i18n="nav.plugins">Плагины</a>
       </nav>
       <div class="actions">
         <div class="lang-switch" aria-label="Language"><button type="button" data-lang-switch="ru">RU</button><button type="button" data-lang-switch="ua">UA</button></div>
-        <a class="pill-btn primary" href="index.html#apply-section" data-i18n="common.apply">РџРѕРґР°С‚СЊ Р·Р°СЏРІРєСѓ</a>
-        <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">Р’ Discord</a>
-        <button class="pill-btn" type="button" data-copy-ip data-i18n="common.copyIp">РЎРєРѕРїРёСЂРѕРІР°С‚СЊ IP</button>
+        <a class="pill-btn primary" href="index.html#apply-section" data-i18n="common.apply">Подать заявку</a>
+        <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">В Discord</a>
+        <button class="pill-btn" type="button" data-copy-ip data-i18n="common.copyIp">Скопировать IP</button>
       </div>
     </div>
   </header>
@@ -48,43 +47,43 @@
   <main>
     <section class="page-intro">
       <div class="container">
-        <h1 data-i18n="start.title">Р‘С‹СЃС‚СЂС‹Р№ СЃС‚Р°СЂС‚ Р·Р° 15 РјРёРЅСѓС‚</h1>
-        <p data-i18n="start.subtitle">РџСѓС‚СЊ РЅРѕРІРёС‡РєР° Рє РїРµСЂРІРѕРјСѓ СЃРµСЂСЊС‘Р·РЅРѕРјСѓ РїСЂРѕРіСЂРµСЃСЃСѓ РЅР° RusLand.</p>
+        <h1 data-i18n="start.title">Быстрый старт за 15 минут</h1>
+        <p data-i18n="start.subtitle">Путь новичка к первому серьёзному прогрессу на RusLand.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container card-grid">
-        <article class="card reveal"><h3 data-i18n="start.s1t">1. РџРѕРґРєР»СЋС‡РёСЃСЊ</h3><p data-i18n="start.s1d">Р—Р°РїСѓСЃС‚Рё Minecraft Java 1.21.10, РґРѕР±Р°РІСЊ СЃРµСЂРІРµСЂ РїРѕ IP Рё Р°РІС‚РѕСЂРёР·СѓР№СЃСЏ.</p></article>
-        <article class="card reveal"><h3 data-i18n="start.s2t">2. РћСЃРјРѕС‚СЂРёСЃСЊ</h3><p data-i18n="start.s2d">РџСЂРѕРІРµСЂСЊ РїСЂР°РІРёР»Р°, Р°РєС‚РёРІРЅС‹Рµ РѕР±РЅРѕРІР»РµРЅРёСЏ Рё РЅР°Р№РґРё Р±Р»РёР¶Р°Р№С€РёРµ Р±РµР·РѕРїР°СЃРЅС‹Рµ С‚РѕС‡РєРё.</p></article>
-        <article class="card reveal"><h3 data-i18n="start.s3t">3. РЎРѕР±РµСЂРё Р±Р°Р·РѕРІС‹Р№ РЅР°Р±РѕСЂ</h3><p data-i18n="start.s3d">Р•РґР°, РёРЅСЃС‚СЂСѓРјРµРЅС‚С‹, РєСЂРѕРІР°С‚СЊ Рё РјРµСЃС‚Рѕ РґР»СЏ РІСЂРµРјРµРЅРЅРѕР№ Р±Р°Р·С‹.</p></article>
-        <article class="card reveal"><h3 data-i18n="start.s4t">4. Р’С‹Р±РµСЂРё РЅР°РїСЂР°РІР»РµРЅРёРµ</h3><p data-i18n="start.s4d">РўРѕСЂРіРѕРІР»СЏ, СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІРѕ, PvE-Р°РєС‚РёРІРЅРѕСЃС‚Рё РёР»Рё СЂР°Р·РІРёС‚РёРµ РёРЅС„СЂР°СЃС‚СЂСѓРєС‚СѓСЂС‹.</p></article>
-        <article class="card reveal"><h3 data-i18n="start.s5t">5. Р’РѕР№РґРё РІ РєРѕРјСЊСЋРЅРёС‚Рё</h3><p data-i18n="start.s5d">Р—Р°Р№РґРё РІ Discord, РїРѕР·РЅР°РєРѕРјСЊСЃСЏ СЃ РёРіСЂРѕРєР°РјРё Рё РЅР°Р№РґРё СЃРѕСЋР·РЅРёРєРѕРІ.</p></article>
+        <article class="card reveal"><h3 data-i18n="start.s1t">1. Подключись</h3><p data-i18n="start.s1d">Запусти Minecraft Java 1.21.10, добавь сервер по IP и авторизуйся.</p></article>
+        <article class="card reveal"><h3 data-i18n="start.s2t">2. Осмотрись</h3><p data-i18n="start.s2d">Проверь правила, активные обновления и найди ближайшие безопасные точки.</p></article>
+        <article class="card reveal"><h3 data-i18n="start.s3t">3. Собери базовый набор</h3><p data-i18n="start.s3d">Еда, инструменты, кровать и место для временной базы.</p></article>
+        <article class="card reveal"><h3 data-i18n="start.s4t">4. Выбери направление</h3><p data-i18n="start.s4d">Торговля, строительство, PvE-активности или развитие инфраструктуры.</p></article>
+        <article class="card reveal"><h3 data-i18n="start.s5t">5. Войди в комьюнити</h3><p data-i18n="start.s5d">Зайди в Discord, познакомься с игроками и найди союзников.</p></article>
       </div>
     </section>
 
     <section class="section">
       <div class="container hero-grid">
         <article class="panel reveal">
-          <h2 class="section-title" data-i18n="start.tipsTitle">РЎС†РµРЅР°СЂРёР№ РїРµСЂРІРѕРіРѕ С‡Р°СЃР°</h2>
+          <h2 class="section-title" data-i18n="start.tipsTitle">Сценарий первого часа</h2>
           <ol class="rules-list">
-            <li data-i18n="start.tip1">Р’РѕР·СЊРјРё РµР¶РµРґРЅРµРІРЅСѓСЋ РЅР°РіСЂР°РґСѓ Рё Р·Р°С„РёРєСЃРёСЂСѓР№ С‚РѕС‡РєСѓ РІРѕР·РІСЂР°С‚Р°.</li>
-            <li data-i18n="start.tip2">РџСЂРѕРІРµСЂСЊ СЂС‹РЅРѕРє: РїРѕСЃРјРѕС‚СЂРё, РєР°РєРёРµ С‚РѕРІР°СЂС‹ СѓР¶Рµ РІРѕСЃС‚СЂРµР±РѕРІР°РЅС‹ Сѓ РёРіСЂРѕРєРѕРІ.</li>
-            <li data-i18n="start.tip3">РЎРѕР±РµСЂРё Р±Р°Р·РѕРІС‹Р№ СЃРµС‚ Рё РІС‹Р±РµСЂРё РЅР°РїСЂР°РІР»РµРЅРёРµ: С‚РѕСЂРіРѕРІР»СЏ, СЃС‚СЂРѕР№РєР° РёР»Рё PvE.</li>
-            <li data-i18n="start.tip4">РџРѕРґРіРѕС‚РѕРІСЊ Р±РµР·РѕРїР°СЃРЅС‹Р№ РјР°СЂС€СЂСѓС‚ Рё РѕС‚РјРµС‚СЊ РјРµСЃС‚Рѕ РїРѕРґ РїРµСЂРІСѓСЋ Р±Р°Р·Сѓ.</li>
-            <li data-i18n="start.tip5">Р’СЃС‚СѓРїРё РІ Discord, РЅР°Р№РґРё РєРѕРЅС‚Р°РєС‚С‹ Рё Р·Р°РґР°Р№ РІРѕРїСЂРѕСЃ РїРѕ С‚РµРєСѓС‰РµРјСѓ СЃРµР·РѕРЅСѓ.</li>
+            <li data-i18n="start.tip1">Возьми ежедневную награду и зафиксируй точку возврата.</li>
+            <li data-i18n="start.tip2">Проверь рынок: посмотри, какие товары уже востребованы у игроков.</li>
+            <li data-i18n="start.tip3">Собери базовый сет и выбери направление: торговля, стройка или PvE.</li>
+            <li data-i18n="start.tip4">Подготовь безопасный маршрут и отметь место под первую базу.</li>
+            <li data-i18n="start.tip5">Вступи в Discord, найди контакты и задай вопрос по текущему сезону.</li>
           </ol>
         </article>
         <article class="panel reveal">
-          <h2 class="section-title" data-i18n="start.quickInfoTitle">РљСЂР°С‚РєР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРµСЂРІРµСЂРµ</h2>
+          <h2 class="section-title" data-i18n="start.quickInfoTitle">Краткая информация о сервере</h2>
           <div class="stat-row">
-            <div class="stat"><strong data-i18n="common.serverIpLabel">IP СЃРµСЂРІРµСЂР°</strong>: <span data-server-ip>rusland5.20tps.ru</span></div>
-            <div class="stat"><strong data-i18n="common.versionLabel">Р’РµСЂСЃРёСЏ</strong>: <span data-server-version>1.21.10</span></div>
-            <div class="stat"><strong data-i18n="common.platformLabel">РџР»Р°С‚С„РѕСЂРјР°</strong>: <span data-server-platform>Java</span></div>
+            <div class="stat"><strong data-i18n="common.serverIpLabel">IP сервера</strong>: <span data-server-ip>rusland5.20tps.ru</span></div>
+            <div class="stat"><strong data-i18n="common.versionLabel">Версия</strong>: <span data-server-version>1.21.10</span></div>
+            <div class="stat"><strong data-i18n="common.platformLabel">Платформа</strong>: <span data-server-platform>Java</span></div>
           </div>
           <div class="cta-row">
-            <a class="pill-btn primary" href="index.html#apply-section" data-i18n="common.apply">РџРѕРґР°С‚СЊ Р·Р°СЏРІРєСѓ</a>
-            <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">Р’ Discord</a>
+            <a class="pill-btn primary" href="index.html#apply-section" data-i18n="common.apply">Подать заявку</a>
+            <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">В Discord</a>
           </div>
         </article>
       </div>
@@ -93,8 +92,8 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span>В© <span data-year></span> <span data-i18n="footer.rights">RusLand Server</span></span>
-      <span data-i18n="footer.note">РЎР°Р№С‚ РґР»СЏ РЅР°Р±РѕСЂР° РёРіСЂРѕРєРѕРІ Рё Р°РєС‚СѓР°Р»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё</span>
+      <span>© <span data-year></span> <span data-i18n="footer.rights">RusLand Server</span></span>
+      <span data-i18n="footer.note">Сайт для набора игроков и актуальной информации</span>
     </div>
   </footer>
 

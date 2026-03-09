@@ -1,18 +1,18 @@
-п»ї<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RusLand Server вЂ” Р“Р»Р°РІРЅР°СЏ</title>
-  <meta name="description" content="РџСЂРѕРјРѕ-СЃР°Р№С‚ СЃРµСЂРІРµСЂР° RusLand: Р·Р°СЏРІРєР° РІ whitelist, Р°РєС‚СѓР°Р»СЊРЅС‹Рµ С„РёС€РєРё, РјРѕРґС‹, РѕР±РЅРѕРІР»РµРЅРёСЏ Рё Р±С‹СЃС‚СЂС‹Р№ РІС…РѕРґ РІ РёРіСЂСѓ.">
+  <title>RusLand Server — Главная</title>
+  <meta name="description" content="Промо-сайт сервера RusLand: заявка в whitelist, актуальные фишки, моды, обновления и быстрый вход в игру.">
   <meta name="theme-color" content="#171d1a">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RusLand Server">
-  <meta property="og:description" content="Java 1.21.10. РџРѕРґР°Р№ Р·Р°СЏРІРєСѓ РІ whitelist Рё РЅР°С‡РЅРё РёРіСЂР°С‚СЊ РЅР° RusLand.">
+  <meta property="og:description" content="Java 1.21.10. Подай заявку в whitelist и начни играть на RusLand.">
   <meta property="og:image" content="assets/og-cover.svg">
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:title" content="RusLand Server">
-  <meta property="twitter:description" content="Java 1.21.10. Р—Р°СЏРІРєР° РІ whitelist, РјРѕРґС‹, Р°РїРґРµР№С‚С‹, С‡РµР»Р»РµРЅРґР¶Рё.">
+  <meta property="twitter:description" content="Java 1.21.10. Заявка в whitelist, моды, апдейты, челленджи.">
   <meta property="twitter:image" content="assets/og-cover.svg">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,6 @@
   <link rel="stylesheet" href="assets/styles.css">
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="data/content.js" defer></script>
   <script src="data/telegram-config.js" defer></script>
   <script src="assets/react-spotlight.js" defer></script>
   <script src="assets/app.js" defer></script>
@@ -34,16 +33,16 @@
         <span class="brand-text">RusLand</span>
       </a>
 
-      <button class="menu-toggle" id="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" data-i18n="common.menu">РњРµРЅСЋ</button>
+      <button class="menu-toggle" id="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" data-i18n="common.menu">Меню</button>
 
       <nav class="main-nav" id="primary-nav" aria-label="Main navigation">
-        <a href="index.html" aria-current="page" data-i18n="nav.home">Р“Р»Р°РІРЅР°СЏ</a>
-        <a href="start.html" data-i18n="nav.start">РќР°С‡Р°С‚СЊ РёРіСЂР°С‚СЊ</a>
-        <a href="mods.html" data-i18n="nav.mods">РњРѕРґС‹</a>
-        <a href="updates.html" data-i18n="nav.updates">РћР±РЅРѕРІР»РµРЅРёСЏ</a>
-        <a href="challenges.html" data-i18n="nav.challenges">Р§РµР»Р»РµРЅРґР¶Рё</a>
-        <a href="rules.html" data-i18n="nav.rules">РџСЂР°РІРёР»Р°/FAQ</a>
-        <a href="plugins.html" data-i18n="nav.plugins">РџР»Р°РіРёРЅС‹</a>
+        <a href="index.html" aria-current="page" data-i18n="nav.home">Главная</a>
+        <a href="start.html" data-i18n="nav.start">Начать играть</a>
+        <a href="mods.html" data-i18n="nav.mods">Моды</a>
+        <a href="updates.html" data-i18n="nav.updates">Обновления</a>
+        <a href="challenges.html" data-i18n="nav.challenges">Челленджи</a>
+        <a href="rules.html" data-i18n="nav.rules">Правила/FAQ</a>
+        <a href="plugins.html" data-i18n="nav.plugins">Плагины</a>
       </nav>
 
       <div class="actions">
@@ -51,9 +50,9 @@
           <button type="button" data-lang-switch="ru">RU</button>
           <button type="button" data-lang-switch="ua">UA</button>
         </div>
-        <a class="pill-btn primary" href="index.html#apply-section" data-i18n="common.apply">РџРѕРґР°С‚СЊ Р·Р°СЏРІРєСѓ</a>
-        <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">Р’ Discord</a>
-        <button class="pill-btn" type="button" data-copy-ip data-i18n="common.copyIp">РЎРєРѕРїРёСЂРѕРІР°С‚СЊ IP</button>
+        <a class="pill-btn primary" href="index.html#apply-section" data-i18n="common.apply">Подать заявку</a>
+        <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">В Discord</a>
+        <button class="pill-btn" type="button" data-copy-ip data-i18n="common.copyIp">Скопировать IP</button>
       </div>
     </div>
   </header>
@@ -62,31 +61,31 @@
     <section class="hero">
       <div class="container hero-grid">
         <article class="panel reveal">
-          <h1 class="crest" data-i18n="index.title">RusLand вЂ” СЃРїРѕРєРѕР№РЅС‹Р№ СЃС‚Р°СЂС‚ Рё Р¶РёРІРѕРµ РІС‹Р¶РёРІР°РЅРёРµ</h1>
-          <p class="subtitle" data-i18n="index.subtitle">Р—Р°Р№РґРё РЅР° RusLand Рё РЅР°С‡РЅРё СЃРІРѕР№ РїСѓС‚СЊ: СЃС‚СЂРѕР№, С‚РѕСЂРіСѓР№, РёСЃСЃР»РµРґСѓР№ Рё РёРіСЂР°Р№ РІ РєРѕРјР°РЅРґРµ.</p>
+          <h1 class="crest" data-i18n="index.title">RusLand — спокойный старт и живое выживание</h1>
+          <p class="subtitle" data-i18n="index.subtitle">Зайди на RusLand и начни свой путь: строй, торгуй, исследуй и играй в команде.</p>
 
           <div class="stat-row">
-            <div class="stat"><strong data-i18n="common.serverIpLabel">IP СЃРµСЂРІРµСЂР°</strong>: <span data-server-ip>rusland5.20tps.ru</span></div>
-            <div class="stat"><strong data-i18n="common.versionLabel">Р’РµСЂСЃРёСЏ</strong>: <span data-server-version>1.21.10</span></div>
-            <div class="stat"><strong data-i18n="common.platformLabel">РџР»Р°С‚С„РѕСЂРјР°</strong>: <span data-server-platform>Java</span></div>
+            <div class="stat"><strong data-i18n="common.serverIpLabel">IP сервера</strong>: <span data-server-ip>rusland5.20tps.ru</span></div>
+            <div class="stat"><strong data-i18n="common.versionLabel">Версия</strong>: <span data-server-version>1.21.10</span></div>
+            <div class="stat"><strong data-i18n="common.platformLabel">Платформа</strong>: <span data-server-platform>Java</span></div>
           </div>
 
           <div class="cta-row">
-            <a class="pill-btn primary" href="#apply-section" data-i18n="common.apply">РџРѕРґР°С‚СЊ Р·Р°СЏРІРєСѓ</a>
-            <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">Р’ Discord</a>
-            <a class="pill-btn" href="start.html" data-i18n="common.ctaStart">Р‘С‹СЃС‚СЂС‹Р№ СЃС‚Р°СЂС‚</a>
+            <a class="pill-btn primary" href="#apply-section" data-i18n="common.apply">Подать заявку</a>
+            <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">В Discord</a>
+            <a class="pill-btn" href="start.html" data-i18n="common.ctaStart">Быстрый старт</a>
           </div>
         </article>
 
         <aside class="panel reveal">
-          <h2 class="section-title" data-i18n="index.statusCardTitle">РЎС‚Р°С‚СѓСЃ РјРёСЂР°</h2>
-          <p class="section-subtitle" data-i18n="index.statusCardText">РџСЂРѕРІРµСЂСЊ РѕРЅР»Р°Р№РЅ Рё Р·Р°С…РѕРґРё. Р•СЃР»Рё СЃРµСЂРІРµСЂ СЃРµР№С‡Р°СЃ РїСѓСЃС‚РѕР№, РІСЃС‘ СЂР°РІРЅРѕ РїРѕРґР°РІР°Р№ Р·Р°СЏРІРєСѓ.</p>
-          <div class="stat"><strong data-i18n="common.playersLabel">РРіСЂРѕРєРё</strong>: <span id="server-status">...</span></div>
+          <h2 class="section-title" data-i18n="index.statusCardTitle">Статус мира</h2>
+          <p class="section-subtitle" data-i18n="index.statusCardText">Проверь онлайн и заходи. Если сервер сейчас пустой, всё равно подавай заявку.</p>
+          <div class="stat"><strong data-i18n="common.playersLabel">Игроки</strong>: <span id="server-status">...</span></div>
 
           <div class="stack" style="margin-top: 14px;">
-            <a class="pill-btn" href="mods.html" data-i18n="common.ctaMods">РџРѕР»РµР·РЅС‹Рµ РјРѕРґС‹</a>
-            <a class="pill-btn" href="updates.html" data-i18n="common.ctaUpdates">Р§С‚Рѕ РЅРѕРІРѕРіРѕ</a>
-            <a class="pill-btn" href="challenges.html" data-i18n="nav.challenges">Р§РµР»Р»РµРЅРґР¶Рё</a>
+            <a class="pill-btn" href="mods.html" data-i18n="common.ctaMods">Полезные моды</a>
+            <a class="pill-btn" href="updates.html" data-i18n="common.ctaUpdates">Что нового</a>
+            <a class="pill-btn" href="challenges.html" data-i18n="nav.challenges">Челленджи</a>
           </div>
         </aside>
       </div>
@@ -94,12 +93,12 @@
 
     <section class="section">
       <div class="container">
-        <h2 class="section-title" data-i18n="index.pathTitle">РљР°Рє РЅР°С‡Р°С‚СЊ Р±РµР· Р»РёС€РЅРёС… С€Р°РіРѕРІ</h2>
-        <p class="section-subtitle" data-i18n="index.pathSub">РџРѕРґРєР»СЋС‡РёСЃСЊ, РѕСЃС‚Р°РІСЊ Р°РЅРєРµС‚Сѓ Рё СЃСЂР°Р·Сѓ РїРµСЂРµС…РѕРґРё РІ РёРіСЂСѓ.</p>
+        <h2 class="section-title" data-i18n="index.pathTitle">Как начать без лишних шагов</h2>
+        <p class="section-subtitle" data-i18n="index.pathSub">Подключись, оставь анкету и сразу переходи в игру.</p>
         <div class="card-grid">
-          <article class="card reveal"><h3 data-i18n="index.s1t">1. РЎРєРѕРїРёСЂСѓР№ IP</h3><p data-i18n="index.s1d">Р—Р°Р№РґРё РЅР° СЃРµСЂРІРµСЂ СЃ Java 1.21.10 Рё РѕСЃРјРѕС‚СЂРёСЃСЊ Р±РµР· СЃРїРµС€РєРё.</p></article>
-          <article class="card reveal"><h3 data-i18n="index.s2t">2. Р—Р°РїРѕР»РЅРё РєРѕСЂРѕС‚РєСѓСЋ Р°РЅРєРµС‚Сѓ</h3><p data-i18n="index.s2d">4 РїРѕР»СЏ, С‡РµСЂРЅРѕРІРёРє СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІ Р±СЂР°СѓР·РµСЂРµ.</p></article>
-          <article class="card reveal"><h3 data-i18n="index.s3t">3. РћС‚РїСЂР°РІСЊ РІ Telegram</h3><p data-i18n="index.s3d">РњС‹ РѕС‚РєСЂРѕРµРј Telegram СЃ РіРѕС‚РѕРІС‹Рј С‚РµРєСЃС‚РѕРј, РѕСЃС‚Р°РЅРµС‚СЃСЏ РЅР°Р¶Р°С‚СЊ РѕС‚РїСЂР°РІРёС‚СЊ.</p></article>
+          <article class="card reveal"><h3 data-i18n="index.s1t">1. Скопируй IP</h3><p data-i18n="index.s1d">Зайди на сервер с Java 1.21.10 и осмотрись без спешки.</p></article>
+          <article class="card reveal"><h3 data-i18n="index.s2t">2. Заполни короткую анкету</h3><p data-i18n="index.s2d">4 поля, черновик сохраняется автоматически в браузере.</p></article>
+          <article class="card reveal"><h3 data-i18n="index.s3t">3. Отправь в Telegram</h3><p data-i18n="index.s3d">Мы откроем Telegram с готовым текстом, останется нажать отправить.</p></article>
         </div>
       </div>
     </section>
@@ -112,44 +111,44 @@
 
     <section class="section">
       <div class="container">
-        <h2 class="section-title" data-i18n="index.featuresTitle">РћСЃС‚Р°РІР°Р№С‚РµСЃСЊ СЃ РЅР°РјРё: Р·РґРµСЃСЊ РІСЃРµРіРґР° РµСЃС‚СЊ С‡РµРј Р·Р°РЅСЏС‚СЊСЃСЏ</h2>
-        <p class="section-subtitle" data-i18n="index.featuresSub">РЎРѕР±СЂР°Р»Рё РјРµС…Р°РЅРёРєРё, РєРѕС‚РѕСЂС‹Рµ СЂРµР°Р»СЊРЅРѕ С‡СѓРІСЃС‚РІСѓСЋС‚СЃСЏ РІ РµР¶РµРґРЅРµРІРЅРѕР№ РёРіСЂРµ.</p>
+        <h2 class="section-title" data-i18n="index.featuresTitle">Оставайтесь с нами: здесь всегда есть чем заняться</h2>
+        <p class="section-subtitle" data-i18n="index.featuresSub">Собрали механики, которые реально чувствуются в ежедневной игре.</p>
 
         <div class="feature-grid">
-          <article class="card reveal"><h3 data-i18n="index.f1t">Р–РёРІРѕР№ Р°СѓРєС†РёРѕРЅ</h3><p data-i18n="index.f1d">AuctionHouse Рё TradePost РґР°СЋС‚ РїРѕРЅСЏС‚РЅСѓСЋ СЌРєРѕРЅРѕРјРёРєСѓ Рё Р±С‹СЃС‚СЂС‹Р№ РѕР±РѕСЂРѕС‚ РІРµС‰РµР№.</p></article>
-          <article class="card reveal"><h3 data-i18n="index.f2t">РџСЂРѕРіСЂРµСЃСЃ СЃ Р±РѕСЃСЃР°РјРё</h3><p data-i18n="index.f2d">DragonBoss, WorldBoss Рё MythicMobs СЃРѕР·РґР°СЋС‚ РєРѕРЅС‚РµРЅС‚ РґР»СЏ РіСЂСѓРїРї Рё СЃРѕР»Рѕ РёРіСЂРѕРєРѕРІ.</p></article>
-          <article class="card reveal"><h3 data-i18n="index.f3t">Р“РѕР»РѕСЃ СЂСЏРґРѕРј</h3><p data-i18n="index.f3d">PlasmoVoice РґРµР»Р°РµС‚ РєРѕРѕРї, РІС‹Р»Р°Р·РєРё Рё РїРµСЂРµРіРѕРІРѕСЂС‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ Р¶РёРІС‹РјРё.</p></article>
-          <article class="card reveal"><h3 data-i18n="index.f4t">Р§РµСЃС‚РЅР°СЏ РёРіСЂР°</h3><p data-i18n="index.f4d">GrimAC + CoreProtect: Р·Р°С‰РёС‚Р° РѕС‚ С‡РёС‚РѕРІ Рё РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РїРѕСЃР»Рµ РєРѕРЅС„Р»РёРєС‚РѕРІ.</p></article>
-          <article class="card reveal"><h3 data-i18n="index.f5t">РЈРґРѕР±РЅС‹Р№ СЃС‚Р°СЂС‚</h3><p data-i18n="index.f5d">AuthMe, DailyReward Рё СЂР°Р·Р±Р»РѕРєРёСЂРѕРІРєР° СЂРµС†РµРїС‚РѕРІ РїРѕРјРѕРіР°СЋС‚ РІРѕР№С‚Рё РІ РёРіСЂСѓ Р±РµР· Р±РѕР»Рё.</p></article>
-          <article class="card reveal"><h3 data-i18n="index.f6t">РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ</h3><p data-i18n="index.f6d">Chunky, LagFixer Рё spark РґРµСЂР¶Р°С‚ СЃС‚Р°Р±РёР»СЊРЅРѕСЃС‚СЊ РІ РїРёРєРѕРІС‹Рµ С‡Р°СЃС‹.</p></article>
+          <article class="card reveal"><h3 data-i18n="index.f1t">Живой аукцион</h3><p data-i18n="index.f1d">AuctionHouse и TradePost дают понятную экономику и быстрый оборот вещей.</p></article>
+          <article class="card reveal"><h3 data-i18n="index.f2t">Прогресс с боссами</h3><p data-i18n="index.f2d">DragonBoss, WorldBoss и MythicMobs создают контент для групп и соло игроков.</p></article>
+          <article class="card reveal"><h3 data-i18n="index.f3t">Голос рядом</h3><p data-i18n="index.f3d">PlasmoVoice делает кооп, вылазки и переговоры действительно живыми.</p></article>
+          <article class="card reveal"><h3 data-i18n="index.f4t">Честная игра</h3><p data-i18n="index.f4d">GrimAC + CoreProtect: защита от читов и восстановление после конфликтов.</p></article>
+          <article class="card reveal"><h3 data-i18n="index.f5t">Удобный старт</h3><p data-i18n="index.f5d">AuthMe, DailyReward и разблокировка рецептов помогают войти в игру без боли.</p></article>
+          <article class="card reveal"><h3 data-i18n="index.f6t">Производительность</h3><p data-i18n="index.f6d">Chunky, LagFixer и spark держат стабильность в пиковые часы.</p></article>
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <h2 class="section-title" data-i18n="index.galleryTitle">Р“Р°Р»РµСЂРµСЏ СЃРµСЂРІРµСЂР°</h2>
-        <p class="section-subtitle" data-i18n="index.gallerySub">Р РµР°Р»СЊРЅС‹Рµ РєР°РґСЂС‹ СЃ СЃРµСЂРІРµСЂР°: Р±Р°Р·Р°, РїРѕСЃРµР»РµРЅРёСЏ Рё Р°С‚РјРѕСЃС„РµСЂРЅС‹Рµ Р»РѕРєР°С†РёРё.</p>
+        <h2 class="section-title" data-i18n="index.galleryTitle">Галерея сервера</h2>
+        <p class="section-subtitle" data-i18n="index.gallerySub">Реальные кадры с сервера: база, поселения и атмосферные локации.</p>
         <div class="gallery">
-          <figure class="reveal shot-1" data-lightbox-src="data/image5.png" data-lightbox-alt="Р’РёРґ РЅР° РїРѕСЃРµР»РµРЅРёРµ РІ С†РІРµС‚СѓС‰РµРј Р±РёРѕРјРµ">
-            <img src="data/image5.png" alt="Р’РёРґ РЅР° РїРѕСЃРµР»РµРЅРёРµ РІ С†РІРµС‚СѓС‰РµРј Р±РёРѕРјРµ" loading="lazy">
-            <figcaption data-i18n="index.g1">Р’РёРґ РЅР° РїРѕСЃРµР»РµРЅРёРµ</figcaption>
+          <figure class="reveal shot-1" data-lightbox-src="data/image5.png" data-lightbox-alt="Вид на поселение в цветущем биоме">
+            <img src="data/image5.png" alt="Вид на поселение в цветущем биоме" loading="lazy">
+            <figcaption data-i18n="index.g1">Вид на поселение</figcaption>
           </figure>
-          <figure class="reveal shot-2" data-lightbox-src="data/image2.png" data-lightbox-alt="Р”РѕРј РёРіСЂРѕРєР° Рё СЃС‚Р°СЂС‚РѕРІР°СЏ Р·РѕРЅР°">
-            <img src="data/image2.png" alt="Р”РѕРј РёРіСЂРѕРєР° Рё СЃС‚Р°СЂС‚РѕРІР°СЏ Р·РѕРЅР°" loading="lazy">
-            <figcaption data-i18n="index.g2">РЈСЋС‚РЅР°СЏ СЃС‚Р°СЂС‚РѕРІР°СЏ Р±Р°Р·Р°</figcaption>
+          <figure class="reveal shot-2" data-lightbox-src="data/image2.png" data-lightbox-alt="Дом игрока и стартовая зона">
+            <img src="data/image2.png" alt="Дом игрока и стартовая зона" loading="lazy">
+            <figcaption data-i18n="index.g2">Уютная стартовая база</figcaption>
           </figure>
-          <figure class="reveal shot-3" data-lightbox-src="data/image3.png" data-lightbox-alt="Р‘РµСЃРµРґРєР° Рё РїСЂРѕРіСѓР»РѕС‡РЅР°СЏ Р·РѕРЅР°">
-            <img src="data/image3.png" alt="Р‘РµСЃРµРґРєР° Рё РїСЂРѕРіСѓР»РѕС‡РЅР°СЏ Р·РѕРЅР°" loading="lazy">
-            <figcaption data-i18n="index.g3">РћР±С‰Р°СЏ Р·РѕРЅР° РѕС‚РґС‹С…Р°</figcaption>
+          <figure class="reveal shot-3" data-lightbox-src="data/image3.png" data-lightbox-alt="Беседка и прогулочная зона">
+            <img src="data/image3.png" alt="Беседка и прогулочная зона" loading="lazy">
+            <figcaption data-i18n="index.g3">Общая зона отдыха</figcaption>
           </figure>
-          <figure class="reveal shot-4" data-lightbox-src="data/image4.png" data-lightbox-alt="РРЅС‚РµСЂСЊРµСЂ РґРµРєРѕСЂР°С‚РёРІРЅРѕР№ Р±Р°Р·С‹">
-            <img src="data/image4.png" alt="РРЅС‚РµСЂСЊРµСЂ РґРµРєРѕСЂР°С‚РёРІРЅРѕР№ Р±Р°Р·С‹" loading="lazy">
-            <figcaption data-i18n="index.g4">Р”РµС‚Р°Р»РёР·РёСЂРѕРІР°РЅРЅС‹Рµ РёРЅС‚РµСЂСЊРµСЂС‹</figcaption>
+          <figure class="reveal shot-4" data-lightbox-src="data/image4.png" data-lightbox-alt="Интерьер декоративной базы">
+            <img src="data/image4.png" alt="Интерьер декоративной базы" loading="lazy">
+            <figcaption data-i18n="index.g4">Детализированные интерьеры</figcaption>
           </figure>
-          <figure class="reveal shot-5" data-lightbox-src="data/screen1.jpg" data-lightbox-alt="РџРµР№Р·Р°Р¶ РІ С†РІРµС‚СѓС‰РµРј Р±РёРѕРјРµ">
-            <img src="data/screen1.jpg" alt="РџРµР№Р·Р°Р¶ РІ С†РІРµС‚СѓС‰РµРј Р±РёРѕРјРµ" loading="lazy">
-            <figcaption data-i18n="index.g5">РђС‚РјРѕСЃС„РµСЂРЅС‹Рµ РїРµР№Р·Р°Р¶Рё</figcaption>
+          <figure class="reveal shot-5" data-lightbox-src="data/screen1.jpg" data-lightbox-alt="Пейзаж в цветущем биоме">
+            <img src="data/screen1.jpg" alt="Пейзаж в цветущем биоме" loading="lazy">
+            <figcaption data-i18n="index.g5">Атмосферные пейзажи</figcaption>
           </figure>
         </div>
       </div>
@@ -158,38 +157,38 @@
     <section class="section" id="apply-section">
       <div class="container">
         <article class="panel reveal">
-          <h2 class="section-title" data-i18n="index.applyTitle">РљРѕСЂРѕС‚РєР°СЏ Р·Р°СЏРІРєР° РІ whitelist</h2>
-          <p class="section-subtitle" data-i18n="index.applySub">Р—Р°РїРѕР»РЅРё 4 РїРѕР»СЏ. РќР°Р¶РјРё В«РћС‚РїСЂР°РІРёС‚СЊ РІ TelegramВ» вЂ” С‚РµРєСЃС‚ Р·Р°СЏРІРєРё СЃРєРѕРїРёСЂСѓРµС‚СЃСЏ, Рё РѕС‚РєСЂРѕРµС‚СЃСЏ Р±РѕС‚.</p>
+          <h2 class="section-title" data-i18n="index.applyTitle">Короткая заявка в whitelist</h2>
+          <p class="section-subtitle" data-i18n="index.applySub">Заполни 4 поля. Нажми «Отправить в Telegram» — текст заявки скопируется, и откроется бот.</p>
 
           <form id="apply-form" novalidate>
             <div class="form-grid">
               <label>
-                <span data-i18n="apply.labelNick">РќРёРє РІ Minecraft</span>
-                <input id="apply-nick" type="text" minlength="2" maxlength="32" required data-i18n-placeholder="apply.placeholderNick" placeholder="РќР°РїСЂРёРјРµСЂ: RedStoneFox">
+                <span data-i18n="apply.labelNick">Ник в Minecraft</span>
+                <input id="apply-nick" type="text" minlength="2" maxlength="32" required data-i18n-placeholder="apply.placeholderNick" placeholder="Например: RedStoneFox">
               </label>
 
               <label>
-                <span data-i18n="apply.labelAge">Р’РѕР·СЂР°СЃС‚</span>
-                <input id="apply-age" type="number" min="14" max="99" required data-i18n-placeholder="apply.placeholderAge" placeholder="РћС‚ 10 РґРѕ 99">
+                <span data-i18n="apply.labelAge">Возраст</span>
+                <input id="apply-age" type="number" min="14" max="99" required data-i18n-placeholder="apply.placeholderAge" placeholder="От 10 до 99">
               </label>
 
               <label class="field-full">
-                <span data-i18n="apply.labelRole">РћРїС‹С‚ / СЂРѕР»СЊ</span>
-                <input id="apply-role" type="text" minlength="2" maxlength="64" required data-i18n-placeholder="apply.placeholderRole" placeholder="РЎС‚СЂРѕРёС‚РµР»СЊ, С„РµСЂРјРµСЂ, СЂРµР№РґРµСЂ, С‚РѕСЂРіРѕРІРµС†...">
+                <span data-i18n="apply.labelRole">Опыт / роль</span>
+                <input id="apply-role" type="text" minlength="2" maxlength="64" required data-i18n-placeholder="apply.placeholderRole" placeholder="Строитель, фермер, рейдер, торговец...">
               </label>
 
               <label class="field-full">
-                <span data-i18n="apply.labelWhy">РџРѕС‡РµРјСѓ С…РѕС‡РµС€СЊ Рє РЅР°Рј</span>
-                <textarea id="apply-why" minlength="10" maxlength="500" required data-i18n-placeholder="apply.placeholderWhy" placeholder="РљРѕСЂРѕС‚РєРѕ Рѕ СЃРµР±Рµ Рё РєР°Рє РїР»Р°РЅРёСЂСѓРµС€СЊ РёРіСЂР°С‚СЊ РЅР° СЃРµСЂРІРµСЂРµ"></textarea>
+                <span data-i18n="apply.labelWhy">Почему хочешь к нам</span>
+                <textarea id="apply-why" minlength="10" maxlength="500" required data-i18n-placeholder="apply.placeholderWhy" placeholder="Коротко о себе и как планируешь играть на сервере"></textarea>
               </label>
             </div>
 
             <div class="cta-row" style="margin-top: 14px;">
-              <button id="send-telegram" class="pill-btn primary" type="button" data-i18n="index.telegram">РћС‚РїСЂР°РІРёС‚СЊ РІ Telegram</button>
-              <a id="go-discord" class="pill-btn" target="_blank" rel="noopener noreferrer" data-discord-link data-i18n="index.discordFlow">РџСЂРѕРґРѕР»Р¶РёС‚СЊ РІ Discord</a>
+              <button id="send-telegram" class="pill-btn primary" type="button" data-i18n="index.telegram">Отправить в Telegram</button>
+              <a id="go-discord" class="pill-btn" target="_blank" rel="noopener noreferrer" data-discord-link data-i18n="index.discordFlow">Продолжить в Discord</a>
             </div>
             <label class="field-full" style="margin-top: 12px;">
-              <span data-i18n="apply.previewLabel">Р“РѕС‚РѕРІС‹Р№ С‚РµРєСЃС‚ Р·Р°СЏРІРєРё</span>
+              <span data-i18n="apply.previewLabel">Готовый текст заявки</span>
               <textarea id="apply-preview" readonly></textarea>
             </label>
             <p id="apply-error" class="form-note" aria-live="polite"></p>
@@ -201,8 +200,8 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span>В© <span data-year></span> <span data-i18n="footer.rights">RusLand Server</span></span>
-      <span data-i18n="footer.note">РЎР°Р№С‚ РґР»СЏ РЅР°Р±РѕСЂР° РёРіСЂРѕРєРѕРІ Рё Р°РєС‚СѓР°Р»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё</span>
+      <span>© <span data-year></span> <span data-i18n="footer.rights">RusLand Server</span></span>
+      <span data-i18n="footer.note">Сайт для набора игроков и актуальной информации</span>
     </div>
   </footer>
 

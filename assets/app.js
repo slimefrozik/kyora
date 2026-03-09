@@ -3,17 +3,20 @@ const CONFIG = {
   minecraftVersion: "1.21.10",
   platform: "Java",
   discordUrl: "https://discord.gg/qVBGNTvapj",
-  telegramUrl: "https://t.me/tikhomir_cherniltsev_bot"
+  telegramUrl: "https://t.me/tikhomir_cherniltsev_bot",
+  feedbackUrl: "https://t.me/slimefrozik"
 };
 
 const PAGE = document.body.dataset.page || "index";
 const STORAGE_LANG_KEY = "rusland_lang";
 const STORAGE_APPLY_DRAFT_KEY = "rusland_apply_draft_v1";
 const STORAGE_MUSIC_KEY = "rusland_music_enabled";
+const STORAGE_CHALLENGE_STREAK_KEY = "rusland_challenge_streak_v1";
 const SUPPORTED_LANGS = ["ru", "ua"];
-const EMBEDDED_DATA = window.RUSLAND_DATA || {};
+const EMBEDDED_DATA_PATH = "data/content.js";
 const TELEGRAM_DELIVERY = window.RUSLAND_TELEGRAM || {};
 const LANG_QUERY_PARAM = "lang";
+let embeddedDataPromise = null;
 
 const state = {
   lang: "ru",
@@ -50,11 +53,62 @@ function getLocalizedField(item, baseField) {
 }
 
 async function loadJson(path) {
-  const response = await fetch(path, { cache: "no-store" });
+  const response = await fetch(path);
   if (!response.ok) {
     throw new Error(`${path}: ${response.status}`);
   }
   return response.json();
+}
+
+function getEmbeddedData() {
+  if (window.RUSLAND_DATA && typeof window.RUSLAND_DATA === "object") {
+    return window.RUSLAND_DATA;
+  }
+  return null;
+}
+
+async function loadEmbeddedData() {
+  const existing = getEmbeddedData();
+  if (existing) {
+    return existing;
+  }
+
+  if (embeddedDataPromise) {
+    return embeddedDataPromise;
+  }
+
+  embeddedDataPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = EMBEDDED_DATA_PATH;
+    script.async = true;
+    script.onload = () => {
+      const data = getEmbeddedData();
+      if (data) {
+        resolve(data);
+        return;
+      }
+      reject(new Error("Embedded data is empty"));
+    };
+    script.onerror = () => {
+      reject(new Error("Failed to load embedded data"));
+    };
+    document.head.append(script);
+  });
+
+  return embeddedDataPromise;
+}
+
+async function loadJsonWithEmbeddedFallback(path, pickFromEmbedded) {
+  try {
+    return await loadJson(path);
+  } catch (error) {
+    const embedded = await loadEmbeddedData();
+    const fallback = pickFromEmbedded(embedded || {});
+    if (fallback !== undefined && fallback !== null) {
+      return fallback;
+    }
+    throw error;
+  }
 }
 
 function showToast(message, durationMs = 2600) {
@@ -110,6 +164,10 @@ function setCoreFields() {
 
   document.querySelectorAll("[data-telegram-link]").forEach((node) => {
     node.setAttribute("href", CONFIG.telegramUrl);
+  });
+
+  document.querySelectorAll("[data-feedback-link]").forEach((node) => {
+    node.setAttribute("href", CONFIG.feedbackUrl);
   });
 
   document.querySelectorAll("[data-year]").forEach((node) => {
@@ -259,7 +317,11 @@ function setupCopyIp() {
 
 function setupReveal() {
   const nodes = document.querySelectorAll(".reveal");
-  if (!nodes.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (!nodes.length) {
+    return;
+  }
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     nodes.forEach((node) => node.classList.add("visible"));
     return;
   }
@@ -282,7 +344,7 @@ async function fetchServerStatus() {
     return;
   }
 
-  statusNode.textContent = t("common.statusLoading", "Проверяем статус...");
+  statusNode.textContent = t("common.statusLoading", "РџСЂРѕРІРµСЂСЏРµРј СЃС‚Р°С‚СѓСЃ...");
 
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 7000);
@@ -301,13 +363,13 @@ async function fetchServerStatus() {
     const max = Number(data?.players?.max);
 
     if (data?.online === true && Number.isFinite(online) && Number.isFinite(max)) {
-      statusNode.textContent = `${t("common.statusOnline", "Онлайн")}: ${online}/${max}`;
+      statusNode.textContent = `${t("common.statusOnline", "РћРЅР»Р°Р№РЅ")}: ${online}/${max}`;
       return;
     }
 
-    statusNode.textContent = t("common.statusOffline", "Оффлайн");
+    statusNode.textContent = t("common.statusOffline", "РћС„С„Р»Р°Р№РЅ");
   } catch (_) {
-    statusNode.textContent = t("common.statusUnknown", "Статус недоступен");
+    statusNode.textContent = t("common.statusUnknown", "РЎС‚Р°С‚СѓСЃ РЅРµРґРѕСЃС‚СѓРїРµРЅ");
   } finally {
     window.clearTimeout(timeout);
   }
@@ -337,7 +399,7 @@ function setupMusicPlayer() {
   button.type = "button";
   button.className = "music-toggle";
   button.setAttribute("aria-live", "polite");
-  button.textContent = "♫";
+  button.textContent = "M";
 
   const label = document.createElement("span");
   label.className = "music-label";
@@ -350,8 +412,8 @@ function setupMusicPlayer() {
   const syncVisual = () => {
     const on = !audio.paused;
     wrap.classList.toggle("is-playing", on);
-    label.textContent = on ? t("common.musicOn", "Музыка: ВКЛ") : t("common.musicOff", "Музыка: ВЫКЛ");
-    button.setAttribute("aria-label", on ? t("common.musicPause", "Выключить музыку") : t("common.musicPlay", "Включить музыку"));
+    label.textContent = on ? t("common.musicOn", "РњСѓР·С‹РєР°: Р’РљР›") : t("common.musicOff", "РњСѓР·С‹РєР°: Р’Р«РљР›");
+    button.setAttribute("aria-label", on ? t("common.musicPause", "Р’С‹РєР»СЋС‡РёС‚СЊ РјСѓР·С‹РєСѓ") : t("common.musicPlay", "Р’РєР»СЋС‡РёС‚СЊ РјСѓР·С‹РєСѓ"));
   };
 
   const persist = (enabled) => {
@@ -368,7 +430,7 @@ function setupMusicPlayer() {
         await audio.play();
         persist(true);
       } catch (_) {
-        showToast(t("common.musicBlocked", "Браузер заблокировал автозапуск. Нажми еще раз."));
+        showToast(t("common.musicBlocked", "Р‘СЂР°СѓР·РµСЂ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°Р» Р°РІС‚РѕР·Р°РїСѓСЃРє. РќР°Р¶РјРё РµС‰Рµ СЂР°Р·."));
       }
     } else {
       audio.pause();
@@ -400,6 +462,28 @@ function setupMusicPlayer() {
   syncVisual();
 }
 
+function setupFeedbackButton() {
+  if (!document.body) {
+    return;
+  }
+
+  const link = document.createElement("a");
+  link.className = "feedback-fab";
+  link.href = CONFIG.feedbackUrl;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+
+  const syncText = () => {
+    link.textContent = t("common.feedback", "Ideas and bug reports");
+    link.setAttribute("aria-label", t("common.feedbackAria", "Open Telegram for feedback and bug reports"));
+    link.title = t("common.feedbackAria", "Open Telegram for feedback and bug reports");
+  };
+
+  document.body.append(link);
+  document.addEventListener("rusland:language-changed", syncText);
+  syncText();
+}
+
 function setupGalleryLightbox() {
   const figures = Array.from(document.querySelectorAll("[data-lightbox-src]"));
   if (!figures.length) {
@@ -417,10 +501,10 @@ function setupGalleryLightbox() {
 
   const close = document.createElement("button");
   close.type = "button";
-  close.textContent = "×";
+  close.textContent = "Г—";
 
   const syncLightboxText = () => {
-    close.setAttribute("aria-label", t("common.close", "Закрыть"));
+    close.setAttribute("aria-label", t("common.close", "Р—Р°РєСЂС‹С‚СЊ"));
   };
 
   const open = (src, alt) => {
@@ -520,14 +604,14 @@ function setupApplicationForm() {
   const buildMessage = () => {
     const draft = getDraft();
     return [
-      t("apply.messageTitle", "Заявка RusLand"),
+      t("apply.messageTitle", "Р—Р°СЏРІРєР° RusLand"),
       "",
-      `${t("apply.fieldNick", "Ник")}: ${draft.nick || "-"}`,
-      `${t("apply.fieldAge", "Возраст")}: ${draft.age || "-"}`,
-      `${t("apply.fieldRole", "Опыт/роль")}: ${draft.role || "-"}`,
-      `${t("apply.fieldWhy", "Почему к нам")}: ${draft.why || "-"}`,
-      `${t("apply.fieldVersion", "Версия")}: ${CONFIG.minecraftVersion} ${CONFIG.platform}`,
-      `${t("apply.fieldServer", "Сервер")}: ${CONFIG.serverIp}`
+      `${t("apply.fieldNick", "РќРёРє")}: ${draft.nick || "-"}`,
+      `${t("apply.fieldAge", "Р’РѕР·СЂР°СЃС‚")}: ${draft.age || "-"}`,
+      `${t("apply.fieldRole", "РћРїС‹С‚/СЂРѕР»СЊ")}: ${draft.role || "-"}`,
+      `${t("apply.fieldWhy", "РџРѕС‡РµРјСѓ Рє РЅР°Рј")}: ${draft.why || "-"}`,
+      `${t("apply.fieldVersion", "Р’РµСЂСЃРёСЏ")}: ${CONFIG.minecraftVersion} ${CONFIG.platform}`,
+      `${t("apply.fieldServer", "РЎРµСЂРІРµСЂ")}: ${CONFIG.serverIp}`
     ].join("\n");
   };
 
@@ -542,7 +626,7 @@ function setupApplicationForm() {
 
   const openTelegramWithMessage = (message) => {
     if (!telegramUsername) {
-      showToast(t("apply.toastNoTelegram", "Не удалось определить Telegram-бота."));
+      showToast(t("apply.toastNoTelegram", "РќРµ СѓРґР°Р»РѕСЃСЊ РѕРїСЂРµРґРµР»РёС‚СЊ Telegram-Р±РѕС‚Р°."));
       return false;
     }
 
@@ -551,7 +635,7 @@ function setupApplicationForm() {
 
     const win = window.open(botUrl.toString(), "_blank", "noopener,noreferrer");
     if (!win) {
-      showToast(t("apply.toastPopupBlocked", "Браузер заблокировал новое окно."));
+      showToast(t("apply.toastPopupBlocked", "Р‘СЂР°СѓР·РµСЂ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°Р» РЅРѕРІРѕРµ РѕРєРЅРѕ."));
       return false;
     }
     return true;
@@ -594,7 +678,7 @@ function setupApplicationForm() {
   const submitToTelegram = async () => {
     if (!form.reportValidity()) {
       if (errorNode) {
-        errorNode.textContent = t("apply.errorInvalid", "Проверьте форму.");
+        errorNode.textContent = t("apply.errorInvalid", "РџСЂРѕРІРµСЂСЊС‚Рµ С„РѕСЂРјСѓ.");
       }
       return;
     }
@@ -607,7 +691,7 @@ function setupApplicationForm() {
     const age = Number(ageRaw);
     if (!Number.isInteger(age) || age < 10 || age > 99) {
       if (errorNode) {
-        errorNode.textContent = t("apply.errorAge", "Возраст от 10 до 99");
+        errorNode.textContent = t("apply.errorAge", "Р’РѕР·СЂР°СЃС‚ РѕС‚ 10 РґРѕ 99");
       }
       return;
     }
@@ -617,14 +701,14 @@ function setupApplicationForm() {
     }
 
     const message = [
-      t("apply.messageTitle", "Заявка RusLand"),
+      t("apply.messageTitle", "Р—Р°СЏРІРєР° RusLand"),
       "",
-      `${t("apply.fieldNick", "Ник")}: ${nickname}`,
-      `${t("apply.fieldAge", "Возраст")}: ${age}`,
-      `${t("apply.fieldRole", "Опыт/роль")}: ${role}`,
-      `${t("apply.fieldWhy", "Почему к нам")}: ${why}`,
-      `${t("apply.fieldVersion", "Версия")}: ${CONFIG.minecraftVersion} ${CONFIG.platform}`,
-      `${t("apply.fieldServer", "Сервер")}: ${CONFIG.serverIp}`
+      `${t("apply.fieldNick", "РќРёРє")}: ${nickname}`,
+      `${t("apply.fieldAge", "Р’РѕР·СЂР°СЃС‚")}: ${age}`,
+      `${t("apply.fieldRole", "РћРїС‹С‚/СЂРѕР»СЊ")}: ${role}`,
+      `${t("apply.fieldWhy", "РџРѕС‡РµРјСѓ Рє РЅР°Рј")}: ${why}`,
+      `${t("apply.fieldVersion", "Р’РµСЂСЃРёСЏ")}: ${CONFIG.minecraftVersion} ${CONFIG.platform}`,
+      `${t("apply.fieldServer", "РЎРµСЂРІРµСЂ")}: ${CONFIG.serverIp}`
     ].join("\n");
 
     updatePreview();
@@ -633,19 +717,19 @@ function setupApplicationForm() {
     try {
       const sentDirectly = await sendViaBotApi(message);
       if (sentDirectly) {
-        showToast(t("apply.toastSentDirect", "Заявка отправлена боту автоматически."));
+        showToast(t("apply.toastSentDirect", "Р—Р°СЏРІРєР° РѕС‚РїСЂР°РІР»РµРЅР° Р±РѕС‚Сѓ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё."));
         localStorage.removeItem(STORAGE_APPLY_DRAFT_KEY);
         return;
       }
     } catch (_) {
-      showToast(t("apply.toastDirectFailed", "Не удалось отправить напрямую. Открою Telegram с текстом."));
+      showToast(t("apply.toastDirectFailed", "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РїСЂР°РІРёС‚СЊ РЅР°РїСЂСЏРјСѓСЋ. РћС‚РєСЂРѕСЋ Telegram СЃ С‚РµРєСЃС‚РѕРј."));
     }
 
     try {
       await copyText(message);
-      showToast(t("apply.toastCopied", "Текст заявки скопирован. Telegram откроется с готовым сообщением."));
+      showToast(t("apply.toastCopied", "РўРµРєСЃС‚ Р·Р°СЏРІРєРё СЃРєРѕРїРёСЂРѕРІР°РЅ. Telegram РѕС‚РєСЂРѕРµС‚СЃСЏ СЃ РіРѕС‚РѕРІС‹Рј СЃРѕРѕР±С‰РµРЅРёРµРј."));
     } catch (_) {
-      showToast(t("apply.toastCopyFailed", "Не удалось скопировать текст заявки."));
+      showToast(t("apply.toastCopyFailed", "РќРµ СѓРґР°Р»РѕСЃСЊ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ С‚РµРєСЃС‚ Р·Р°СЏРІРєРё."));
     }
 
     openTelegramWithMessage(message);
@@ -686,7 +770,7 @@ function renderModsPage() {
   category.textContent = "";
   const optionAll = document.createElement("option");
   optionAll.value = "all";
-  optionAll.textContent = t("mods.filterAll", "Все категории");
+  optionAll.textContent = t("mods.filterAll", "Р’СЃРµ РєР°С‚РµРіРѕСЂРёРё");
   category.append(optionAll);
 
   categories.forEach((name) => {
@@ -720,7 +804,7 @@ function renderModsPage() {
     if (!filtered.length) {
       const empty = document.createElement("p");
       empty.className = "empty-state";
-      empty.textContent = t("mods.empty", "Ничего не найдено.");
+      empty.textContent = t("mods.empty", "РќРёС‡РµРіРѕ РЅРµ РЅР°Р№РґРµРЅРѕ.");
       list.append(empty);
       return;
     }
@@ -754,7 +838,7 @@ function renderModsPage() {
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.className = "link-btn";
-      link.textContent = t("mods.openModrinth", "Открыть на Modrinth");
+      link.textContent = t("mods.openModrinth", "РћС‚РєСЂС‹С‚СЊ РЅР° Modrinth");
 
       card.append(title, meta, summary, tags, link);
       list.append(card);
@@ -786,7 +870,7 @@ function renderUpdatesPage() {
   if (!sorted.length) {
     const empty = document.createElement("p");
     empty.className = "empty-state";
-    empty.textContent = t("updates.empty", "Обновлений пока нет.");
+    empty.textContent = t("updates.empty", "РћР±РЅРѕРІР»РµРЅРёР№ РїРѕРєР° РЅРµС‚.");
     list.append(empty);
     return;
   }
@@ -810,7 +894,7 @@ function renderUpdatesPage() {
 
     const impact = document.createElement("p");
     impact.className = "meta";
-    impact.textContent = `${t("updates.impact", "Влияние")}: ${getLocalizedField(item, "impact")}`;
+    impact.textContent = `${t("updates.impact", "Р’Р»РёСЏРЅРёРµ")}: ${getLocalizedField(item, "impact")}`;
 
     card.append(date, title, summary, impact);
     list.append(card);
@@ -822,14 +906,42 @@ function renderUpdatesPage() {
 function renderChallengesPage() {
   const difficulty = document.getElementById("challenge-difficulty");
   const generateBtn = document.getElementById("challenge-generate");
+  const copyBtn = document.getElementById("challenge-copy");
+  const completeBtn = document.getElementById("challenge-complete");
   const textNode = document.getElementById("challenge-text");
   const metaNode = document.getElementById("challenge-meta");
+  const noteNode = document.getElementById("challenge-note");
+  const streakNode = document.getElementById("challenge-streak");
 
-  if (!difficulty || !generateBtn || !textNode || !metaNode) {
+  if (!difficulty || !generateBtn || !copyBtn || !completeBtn || !textNode || !metaNode) {
     return;
   }
 
   const randomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const challengeKey = (item) => `${item.action}|${item.constraint}|${item.context}|${item.difficulty}`;
+  let lastChallengeKey = "";
+  let lastChallenge = null;
+  let streak = Number(localStorage.getItem(STORAGE_CHALLENGE_STREAK_KEY) || "0");
+
+  const getChallengeText = (item) => {
+    const parts = [
+      getLocalizedField(item, "action"),
+      getLocalizedField(item, "constraint"),
+      getLocalizedField(item, "context")
+    ].map(sanitize).filter(Boolean);
+    return parts.length ? `${parts.join(". ")}.` : "";
+  };
+
+  const setDifficultyBadge = (challenge) => {
+    const difficultyValue = challenge?.difficulty || "medium";
+    const difficultyLabel = t(`challenges.level.${difficultyValue}`, difficultyValue);
+    metaNode.className = "meta challenge-badge";
+    metaNode.classList.remove("is-easy", "is-medium", "is-hard");
+    if (difficultyValue === "easy" || difficultyValue === "medium" || difficultyValue === "hard") {
+      metaNode.classList.add(`is-${difficultyValue}`);
+    }
+    metaNode.textContent = `${t("challenges.metaLabel", "Сложность")}: ${difficultyLabel}`;
+  };
 
   const makeChallenge = () => {
     const selected = difficulty.value;
@@ -840,30 +952,67 @@ function renderChallengesPage() {
     const pool = source.length ? source : state.challenges;
     if (!pool.length) {
       textNode.textContent = t("challenges.empty", "Челленджи недоступны.");
+      metaNode.className = "meta";
       metaNode.textContent = "";
+      if (noteNode) {
+        noteNode.textContent = "";
+      }
+      lastChallenge = null;
+      lastChallengeKey = "";
       return;
     }
 
-    const actions = Array.from(new Set(pool.map((item) => getLocalizedField(item, "action")).filter(Boolean)));
-    const constraints = Array.from(new Set(pool.map((item) => getLocalizedField(item, "constraint")).filter(Boolean)));
-    const contexts = Array.from(new Set(pool.map((item) => getLocalizedField(item, "context")).filter(Boolean)));
+    let candidates = pool;
+    if (pool.length > 1 && lastChallengeKey) {
+      candidates = pool.filter((item) => challengeKey(item) !== lastChallengeKey);
+      if (!candidates.length) {
+        candidates = pool;
+      }
+    }
 
-    const challengeText = `${randomItem(actions)}. ${randomItem(constraints)}. ${randomItem(contexts)}.`;
-    textNode.textContent = challengeText;
-
-    if (selected === "all") {
-      metaNode.textContent = t("challenges.metaAll", "Смешанная сложность");
-    } else {
-      const labelKey = `challenges.level.${selected}`;
-      metaNode.textContent = `${t("challenges.metaLabel", "Сложность")}: ${t(labelKey, selected)}`;
+    const challenge = randomItem(candidates);
+    lastChallenge = challenge;
+    lastChallengeKey = challengeKey(challenge);
+    textNode.textContent = getChallengeText(challenge);
+    setDifficultyBadge(challenge);
+    if (noteNode) {
+      noteNode.textContent = t("challenges.note", "Можно нажать «Следующий», если задача не подходит.");
+    }
+    if (streakNode) {
+      streakNode.textContent = t("challenges.streak", `Series: ${streak}`).replace("{count}", String(streak));
     }
   };
 
-  if (!generateBtn.dataset.bound) {
-    generateBtn.addEventListener("click", makeChallenge);
-    difficulty.addEventListener("change", makeChallenge);
-    generateBtn.dataset.bound = "1";
-  }
+  const copyChallenge = async () => {
+    if (!lastChallenge || !textNode.textContent.trim()) {
+      return;
+    }
+
+    const payload = `${textNode.textContent}\n${metaNode.textContent}`.trim();
+    try {
+      await copyText(payload);
+      showToast(t("challenges.copied", "Челлендж скопирован"));
+    } catch (_) {
+      showToast(t("challenges.copyFailed", "Не удалось скопировать челлендж"));
+    }
+  };
+
+  const markCompleted = () => {
+    if (!lastChallenge) {
+      return;
+    }
+    streak += 1;
+    localStorage.setItem(STORAGE_CHALLENGE_STREAK_KEY, String(streak));
+    if (streakNode) {
+      streakNode.textContent = t("challenges.streak", `Series: ${streak}`).replace("{count}", String(streak));
+    }
+    showToast(t("challenges.completeToast", "Progress updated"));
+  };
+
+  generateBtn.onclick = makeChallenge;
+  copyBtn.onclick = copyChallenge;
+  completeBtn.onclick = markCompleted;
+  difficulty.onchange = makeChallenge;
 
   makeChallenge();
 }
@@ -883,7 +1032,7 @@ function renderPluginsPage() {
   category.textContent = "";
   const optionAll = document.createElement("option");
   optionAll.value = "all";
-  optionAll.textContent = t("plugins.filterAll", "Все категории");
+  optionAll.textContent = t("plugins.filterAll", "Р’СЃРµ РєР°С‚РµРіРѕСЂРёРё");
   category.append(optionAll);
 
   categories.forEach((categoryName) => {
@@ -929,7 +1078,7 @@ function renderPluginsPage() {
       const cell = document.createElement("td");
       cell.colSpan = 5;
       cell.className = "empty-state";
-      cell.textContent = t("plugins.empty", "Плагины не найдены.");
+      cell.textContent = t("plugins.empty", "РџР»Р°РіРёРЅС‹ РЅРµ РЅР°Р№РґРµРЅС‹.");
       row.append(cell);
       tableBody.append(row);
       return;
@@ -993,78 +1142,58 @@ function renderPageDynamic() {
 }
 
 async function loadDataForPage() {
-  const tasks = [];
-  if (EMBEDDED_DATA.i18n) state.i18n = EMBEDDED_DATA.i18n;
-
-  tasks.push(
-    loadJson("data/i18n.json")
-      .then((data) => {
-        state.i18n = data;
-      })
-      .catch((error) => {
-        if (!EMBEDDED_DATA.i18n) throw error;
-      })
-  );
+  const i18nData = await loadJsonWithEmbeddedFallback("data/i18n.json", (embedded) => embedded.i18n);
+  if (i18nData && typeof i18nData === "object") {
+    state.i18n = i18nData;
+  }
 
   if (PAGE === "mods") {
-    if (Array.isArray(EMBEDDED_DATA.mods)) state.mods = EMBEDDED_DATA.mods;
-    tasks.push(
-      loadJson("data/mods.json")
-        .then((data) => {
-          state.mods = Array.isArray(data.mods) ? data.mods : [];
-        })
-        .catch((error) => {
-          if (!Array.isArray(EMBEDDED_DATA.mods)) throw error;
-        })
-    );
+    const modsData = await loadJsonWithEmbeddedFallback("data/mods.json", (embedded) => {
+      if (Array.isArray(embedded.mods)) {
+        return embedded.mods;
+      }
+      return undefined;
+    });
+    state.mods = Array.isArray(modsData) ? modsData : (Array.isArray(modsData?.mods) ? modsData.mods : []);
   }
 
   if (PAGE === "updates") {
-    if (Array.isArray(EMBEDDED_DATA.updates)) state.updates = EMBEDDED_DATA.updates;
-    tasks.push(
-      loadJson("data/updates.json")
-        .then((data) => {
-          state.updates = Array.isArray(data.updates) ? data.updates : [];
-        })
-        .catch((error) => {
-          if (!Array.isArray(EMBEDDED_DATA.updates)) throw error;
-        })
-    );
+    const updatesData = await loadJsonWithEmbeddedFallback("data/updates.json", (embedded) => {
+      if (Array.isArray(embedded.updates)) {
+        return embedded.updates;
+      }
+      return undefined;
+    });
+    state.updates = Array.isArray(updatesData) ? updatesData : (Array.isArray(updatesData?.updates) ? updatesData.updates : []);
   }
 
   if (PAGE === "plugins") {
-    if (Array.isArray(EMBEDDED_DATA.plugins)) state.plugins = EMBEDDED_DATA.plugins;
-    tasks.push(
-      loadJson("data/plugins.json")
-        .then((data) => {
-          state.plugins = Array.isArray(data.plugins) ? data.plugins : [];
-        })
-        .catch((error) => {
-          if (!Array.isArray(EMBEDDED_DATA.plugins)) throw error;
-        })
-    );
+    const pluginsData = await loadJsonWithEmbeddedFallback("data/plugins.json", (embedded) => {
+      if (Array.isArray(embedded.plugins)) {
+        return embedded.plugins;
+      }
+      return undefined;
+    });
+    state.plugins = Array.isArray(pluginsData) ? pluginsData : (Array.isArray(pluginsData?.plugins) ? pluginsData.plugins : []);
   }
 
   if (PAGE === "challenges") {
-    if (Array.isArray(EMBEDDED_DATA.challenges)) state.challenges = EMBEDDED_DATA.challenges;
-    tasks.push(
-      loadJson("data/challenges.json")
-        .then((data) => {
-          state.challenges = Array.isArray(data.challenges) ? data.challenges : [];
-        })
-        .catch((error) => {
-          if (!Array.isArray(EMBEDDED_DATA.challenges)) throw error;
-        })
-    );
+    const challengesData = await loadJsonWithEmbeddedFallback("data/challenges.json", (embedded) => {
+      if (Array.isArray(embedded.challenges)) {
+        return embedded.challenges;
+      }
+      return undefined;
+    });
+    state.challenges = Array.isArray(challengesData) ? challengesData : (Array.isArray(challengesData?.challenges) ? challengesData.challenges : []);
   }
-
-  await Promise.all(tasks);
 }
 
 async function init() {
+  document.documentElement.classList.add("js-enabled");
   setupMobileMenu();
   setupCopyIp();
   setupMusicPlayer();
+  setupFeedbackButton();
   setupGalleryLightbox();
   setCoreFields();
   setupReveal();

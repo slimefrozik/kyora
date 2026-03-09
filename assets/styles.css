@@ -710,6 +710,17 @@ textarea[readonly] {
   gap: 14px;
 }
 
+.challenge-actions,
+.challenge-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.challenge-actions .pill-btn.primary {
+  min-width: 220px;
+}
+
 .challenge-result {
   border: 1px dashed rgba(214, 161, 79, 0.6);
   border-radius: 12px;
@@ -725,6 +736,46 @@ textarea[readonly] {
 .challenge-text {
   margin: 0;
   color: var(--text);
+}
+
+.challenge-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 12px 0 10px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(214, 161, 79, 0.55);
+  background: rgba(214, 161, 79, 0.12);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.challenge-badge.is-easy {
+  border-color: rgba(123, 196, 127, 0.7);
+  background: rgba(123, 196, 127, 0.16);
+}
+
+.challenge-badge.is-medium {
+  border-color: rgba(214, 161, 79, 0.7);
+  background: rgba(214, 161, 79, 0.16);
+}
+
+.challenge-badge.is-hard {
+  border-color: rgba(182, 73, 50, 0.8);
+  background: rgba(182, 73, 50, 0.2);
+}
+
+.challenge-note {
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.challenge-streak {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
 .rules-list {
@@ -832,7 +883,7 @@ tr:hover td {
   position: fixed;
   right: 14px;
   bottom: 14px;
-  z-index: 95;
+  z-index: 70;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -866,13 +917,39 @@ tr:hover td {
   padding-right: 8px;
 }
 
+.feedback-fab {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 72;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(10, 14, 15, 0.9);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.84rem;
+  box-shadow: var(--shadow);
+}
+
+.feedback-fab:hover {
+  border-color: rgba(214, 161, 79, 0.8);
+}
+
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.js-enabled .reveal {
   opacity: 0;
   transform: translateY(18px);
   transition: 380ms ease;
 }
 
-.reveal.visible {
+.js-enabled .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -929,6 +1006,10 @@ tr:hover td {
 }
 
 @media (max-width: 760px) {
+  main {
+    padding-bottom: 74px;
+  }
+
   .actions {
     gap: 6px;
     justify-content: flex-start;
@@ -950,6 +1031,12 @@ tr:hover td {
 
   .main-nav.open {
     grid-template-columns: 1fr;
+  }
+
+  .challenge-actions .pill-btn,
+  .challenge-result-actions .pill-btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .gallery {
@@ -974,6 +1061,27 @@ tr:hover td {
     display: none;
   }
 
+  .music-player {
+    right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    gap: 0;
+    padding: 2px;
+    border-radius: 999px;
+  }
+
+  .feedback-fab {
+    left: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    padding: 8px 11px;
+    font-size: 0.8rem;
+  }
+
+  .music-toggle {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
   .footer-inner {
     align-items: flex-start;
   }
@@ -990,7 +1098,7 @@ tr:hover td {
     scroll-behavior: auto !important;
   }
 
-  .reveal {
+  .js-enabled .reveal {
     opacity: 1;
     transform: none;
   }

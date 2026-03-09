@@ -18,7 +18,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600;700&family=Uncial+Antiqua&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
-  <script src="data/content.js" defer></script>
   <script src="data/telegram-config.js" defer></script>
   <script src="assets/app.js" defer></script>
 </head>
@@ -49,7 +48,7 @@
     <section class="page-intro">
       <div class="container">
         <h1 data-i18n="challenges.title">Рандомный челлендж</h1>
-        <p data-i18n="challenges.subtitle">Сгенерируй себе цель на вечер. Без серверных наград, только для интереса и контента.</p>
+        <p data-i18n="challenges.subtitle">Выбери сложность, получи задачу и отправляйся в игру.</p>
       </div>
     </section>
 
@@ -65,13 +64,21 @@
               <option value="hard" data-i18n="challenges.level.hard">Сложная</option>
             </select>
           </label>
-          <button id="challenge-generate" class="pill-btn primary" type="button" data-i18n="challenges.generate">Сгенерировать</button>
+          <div class="challenge-actions">
+            <button id="challenge-generate" class="pill-btn primary" type="button" data-i18n="challenges.generate">Новый челлендж</button>
+          </div>
         </article>
 
         <article class="panel reveal challenge-result" aria-live="polite">
           <h2 class="challenge-title" data-i18n="challenges.resultTitle">Твоя задача</h2>
           <p class="challenge-text" id="challenge-text"></p>
-          <p class="meta" id="challenge-meta"></p>
+          <p class="meta challenge-badge" id="challenge-meta"></p>
+          <div class="challenge-result-actions">
+            <button id="challenge-copy" class="pill-btn" type="button" data-i18n="challenges.copy">Скопировать челлендж</button>
+            <button id="challenge-complete" class="pill-btn" type="button" data-i18n="challenges.complete">Выполнено</button>
+          </div>
+          <p id="challenge-note" class="challenge-note" data-i18n="challenges.note">Можно нажать «Следующий», если задача не подходит.</p>
+          <p id="challenge-streak" class="challenge-streak"></p>
         </article>
       </div>
     </section>
