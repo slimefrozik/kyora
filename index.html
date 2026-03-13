@@ -3,22 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RusLand Server — Главная</title>
-  <meta name="description" content="Промо-сайт сервера RusLand: заявка в whitelist, актуальные фишки, моды, обновления и быстрый вход в игру.">
+  <title>Kyora — Minecraft сервер (IP: kyora.20tps.ru)</title>
+  <meta name="description" content="Kyora — приватный Minecraft сервер Java 1.21.10. IP: kyora.20tps.ru. Заявка в whitelist, моды, обновления, челленджи и быстрый вход в игру.">
+  <meta name="keywords" content="Kyora, Kyora Server, minecraft сервер, майнкрафт сервер, whitelist, Java 1.21.10, kyora.20tps.ru">
+  <meta name="robots" content="index, follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#171d1a">
+  <link rel="canonical" href="https://slimefrozik.github.io/kyora/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="RusLand Server">
-  <meta property="og:description" content="Java 1.21.10. Подай заявку в whitelist и начни играть на RusLand.">
-  <meta property="og:image" content="assets/og-cover.svg">
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="RusLand Server">
-  <meta property="twitter:description" content="Java 1.21.10. Заявка в whitelist, моды, апдейты, челленджи.">
-  <meta property="twitter:image" content="assets/og-cover.svg">
+  <meta property="og:title" content="Kyora — Minecraft сервер">
+  <meta property="og:description" content="Java 1.21.10. IP: kyora.20tps.ru. Подай заявку в whitelist и начни играть на Kyora.">
+  <meta property="og:url" content="https://slimefrozik.github.io/kyora/">
+  <meta property="og:site_name" content="Kyora">
+  <meta property="og:image" content="https://slimefrozik.github.io/kyora/assets/og-cover.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kyora — Minecraft сервер">
+  <meta name="twitter:description" content="Java 1.21.10. IP: kyora.20tps.ru. Заявка в whitelist, моды, апдейты, челленджи.">
+  <meta name="twitter:image" content="https://slimefrozik.github.io/kyora/assets/og-cover.svg">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;500;600;700&family=Uncial+Antiqua&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://slimefrozik.github.io/kyora/#website",
+          "url": "https://slimefrozik.github.io/kyora/",
+          "name": "Kyora",
+          "alternateName": ["Kyora Server"],
+          "description": "Приватный Minecraft сервер Kyora. Java 1.21.10. IP: kyora.20tps.ru.",
+          "publisher": {
+            "@id": "https://slimefrozik.github.io/kyora/#organization"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://slimefrozik.github.io/kyora/#organization",
+          "name": "Kyora",
+          "url": "https://slimefrozik.github.io/kyora/",
+          "logo": "https://slimefrozik.github.io/kyora/assets/favicon.svg"
+        },
+        {
+          "@type": "GameServer",
+          "@id": "https://slimefrozik.github.io/kyora/#gameserver",
+          "name": "Kyora",
+          "alternateName": ["Kyora Server"],
+          "description": "Приватный Minecraft сервер Java 1.21.10 с whitelist, модами и регулярными обновлениями.",
+          "url": "https://slimefrozik.github.io/kyora/",
+          "game": "Minecraft",
+          "serverStatus": "Online",
+          "address": "kyora.20tps.ru"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://slimefrozik.github.io/kyora/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Какой IP у сервера Kyora?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "IP сервера Kyora: kyora.20tps.ru."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Какая версия Minecraft поддерживается?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Сервер Kyora работает на Java 1.21.10."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Как начать играть на Kyora?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Оставьте заявку в whitelist через Telegram-бота и подключитесь по IP."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="data/telegram-config.js" defer></script>
@@ -29,9 +103,8 @@
     <div class="container topbar">
       <a class="brand" href="index.html">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-text">RusLand</span>
+        <span class="brand-text">Kyora</span>
       </a>
-
       <nav class="main-nav" id="primary-nav" aria-label="Main navigation">
         <a href="index.html" aria-current="page" data-i18n="nav.home">Главная</a>
         <a href="start.html" data-i18n="nav.start">Начать играть</a>
@@ -47,14 +120,14 @@
         <div class="lang-menu" data-lang-menu>
           <button class="lang-toggle" type="button" data-lang-toggle data-i18n="common.lang" aria-expanded="false">Язык</button>
           <div class="lang-options" role="menu">
-            <button type="button" data-lang-switch="ru"><span class="flag">🇷🇺</span><span>RU</span></button>
-            <button type="button" data-lang-switch="ua"><span class="flag">🇺🇦</span><span>UA</span></button>
-            <button type="button" data-lang-switch="be"><span class="flag">🇧🇾</span><span>BE</span></button>
-            <button type="button" data-lang-switch="kk"><span class="flag">🇰🇿</span><span>KZ</span></button>
+            <button type="button" data-lang-switch="ru"><span class="flag">&#127479;&#127482;</span><span>RU</span></button>
+            <button type="button" data-lang-switch="ua"><span class="flag">&#127482;&#127462;</span><span>UA</span></button>
+            <button type="button" data-lang-switch="be"><span class="flag">&#127463;&#127486;</span><span>BE</span></button>
+            <button type="button" data-lang-switch="kk"><span class="flag">&#127472;&#127487;</span><span>KZ</span></button>
           </div>
         </div>
         <a class="pill-btn primary" href="index.html#apply-section" data-i18n="common.apply">Подать заявку</a>
-        <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">В Discord</a>
+        <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">Discord (скоро)</a>
       </div>
     </div>
   </header>
@@ -63,18 +136,18 @@
     <section class="hero">
       <div class="container hero-grid">
         <article class="panel reveal">
-          <h1 class="crest" data-i18n="index.title">RusLand — сервер, где хочется остаться надолго</h1>
+          <h1 class="crest" data-i18n="index.title">Kyora — сервер, где хочется остаться надолго</h1>
           <p class="subtitle" data-i18n="index.subtitle">Каждый найдёт своё место.</p>
 
           <div class="stat-row">
-            <div class="stat is-row"><strong data-i18n="common.serverIpLabel">IP сервера</strong>: <span data-server-ip>rusland5.20tps.ru</span><button class="pill-btn is-compact" type="button" data-copy-ip data-i18n="common.copyIp">Скопировать IP</button></div>
+            <div class="stat is-row"><strong data-i18n="common.serverIpLabel">IP сервера</strong>: <span data-server-ip>kyora.20tps.ru</span><button class="pill-btn is-compact" type="button" data-copy-ip data-i18n="common.copyIp">Скопировать IP</button></div>
             <div class="stat"><strong data-i18n="common.versionLabel">Версия</strong>: <span data-server-version>1.21.10</span></div>
             <div class="stat"><strong data-i18n="common.platformLabel">Платформа</strong>: <span data-server-platform>Java</span></div>
           </div>
 
           <div class="cta-row">
             <a class="pill-btn primary" href="#apply-section" data-i18n="common.apply">Подать заявку</a>
-            <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">В Discord</a>
+            <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">Discord (скоро)</a>
             <a class="pill-btn" href="start.html" data-i18n="common.ctaStart">Как зайти?</a>
           </div>
         </article>
@@ -129,60 +202,69 @@
       </div>
     </section>
 
-    <section class="section" id="apply-section">
+        <section class="section" id="apply-section">
       <div class="container">
         <article class="panel reveal">
-          <h2 class="section-title" data-i18n="index.applyTitle">Анкета для whitelist</h2>
-          <p class="section-subtitle" data-i18n="index.applySub">Заполни 3 поля. Отправь в Telegram|Discord. Жди ответа модерации.</p>
-
-          <form id="apply-form" novalidate>
-            <div class="form-grid">
-              <label>
-                <span data-i18n="apply.labelNick">Ник в Minecraft</span>
-                <input id="apply-nick" type="text" minlength="2" maxlength="32" required data-i18n-placeholder="apply.placeholderNick" placeholder="Например: RedStoneFox">
-              </label>
-
-              <label>
-                <span data-i18n="apply.labelAge">Возраст</span>
-                <input id="apply-age" type="number" min="14" max="99" required data-i18n-placeholder="apply.placeholderAge" placeholder="От 10 до 99">
-              </label>
-
-              <label class="field-full">
-                <span data-i18n="apply.labelRole">Опыт / роль</span>
-                <input id="apply-role" type="text" minlength="2" maxlength="64" required data-i18n-placeholder="apply.placeholderRole" placeholder="Строитель, фермер, рейдер, торговец...">
-              </label>
-
-              <label class="field-full">
-                <span data-i18n="apply.labelWhy">Поделись секретами о себе</span>
-                <textarea id="apply-why" maxlength="500" data-i18n-placeholder="apply.placeholderWhy" placeholder="Ускоряет рассмотрение заявки (необязательно)."></textarea>
-              </label>
-            </div>
-
-            <div class="cta-row" style="margin-top: 14px;">
-              <button id="send-telegram" class="pill-btn primary" type="button" data-i18n="index.telegram">Отправить в Telegram</button>
-              <a id="go-discord" class="pill-btn" target="_blank" rel="noopener noreferrer" data-discord-link data-i18n="index.discordFlow">Продолжить в Discord</a>
-            </div>
-            <label class="field-full" style="margin-top: 12px;">
-              <span data-i18n="apply.previewLabel">Готовый текст заявки</span>
-              <textarea id="apply-preview" readonly></textarea>
-            </label>
-            <p id="apply-error" class="form-note" aria-live="polite"></p>
-          </form>
+          <h2 class="section-title" data-i18n="index.applyTitle">Заявка через Telegram</h2>
+          <p class="section-subtitle" data-i18n="index.applySub">Открой Telegram-бота и отправь заявку. Discord будет позже.</p>
+          <div class="cta-row" style="margin-top: 14px;">
+            <a class="pill-btn primary" data-telegram-link target="_blank" rel="noopener noreferrer" data-i18n="index.telegram">Перейти в Telegram-бота</a>
+            <a class="pill-btn" href="#" data-discord-link data-i18n="common.discord">Discord (скоро)</a>
+          </div>
+          <p class="form-note" data-i18n="index.telegramNote">Если бот не открывается, установи Telegram или используй веб-версию.</p>
         </article>
+      </div>
+    </section>
+        <section class="section" id="seo-content">
+      <div class="container">
+        <h1 class="section-title">Kyora — Minecraft сервер</h1>
+        <h2 class="section-subtitle">IP сервера: kyora.20tps.ru • Версия: Java 1.21.10</h2>
+        <p>Kyora — приватный Minecraft сервер с whitelist, модами и регулярными обновлениями. Здесь ценят атмосферное выживание, красивые постройки и совместные проекты.</p>
+        <p>Чтобы начать играть, подайте заявку в whitelist через Telegram-бота и подключитесь по IP: kyora.20tps.ru. Полезные ссылки: <a href="start.html">как зайти</a>, <a href="mods.html">список модов</a>, <a href="rules.html">правила и FAQ</a>.</p>
+        <div class="card-grid" style="margin-top: 16px;">
+          <article class="card reveal">
+            <h3>FAQ: Какой IP у сервера?</h3>
+            <p>IP сервера Kyora: kyora.20tps.ru.</p>
+          </article>
+          <article class="card reveal">
+            <h3>FAQ: Какая версия поддерживается?</h3>
+            <p>Сервер Kyora работает на Java 1.21.10.</p>
+          </article>
+          <article class="card reveal">
+            <h3>FAQ: Как присоединиться?</h3>
+            <p>Оставьте заявку в whitelist через Telegram-бота и подключитесь по IP.</p>
+          </article>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span>© <span data-year></span> <span data-i18n="footer.rights">RusLand Server</span></span>
-      <span data-i18n="footer.note">prod. by AI</span>
+      <span>© 2026 Kyora</span>
     </div>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

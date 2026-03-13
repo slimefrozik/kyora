@@ -6,49 +6,49 @@
 
   const { createElement: h, useEffect, useMemo, useState } = window.React;
 
-  const copy = {
+    const copy = {
     ru: {
-      title: "Выбери свой стиль игры",
-      subtitle: "Выбери роль и посмотри, с чего проще начать на сервере.",
-      cta: "Перейти к анкете",
+      title: "Выбери свой стиль",
+      subtitle: "Выбирай путь и развивайся, а мы поможем найти твою роль.",
+      cta: "Подать заявку",
       modes: [
         {
-          title: "Торговец",
-          points: ["Быстрый старт через аукцион", "Рынок активен в прайм-тайм", "Подходит для соло-игры"]
+          title: "Строители",
+          points: ["Красивые базы и декор", "Планировка и ландшафт", "Проекты для всего сервера"]
         },
         {
-          title: "Строитель",
-          points: ["Долгая прогрессия без вайпов", "Поддержка командных проектов", "Пространство для больших баз"]
+          title: "Исследователи",
+          points: ["Новые биомы и структуры", "Редкие ресурсы и лут", "Карта приключений"]
         },
         {
-          title: "Охотник на боссов",
-          points: ["Групповой PvE-контент", "Новые ротации боссов", "Постоянный повод вернуться вечером"]
+          title: "Бойцы и рейды",
+          points: ["Сражения с боссами", "Рейды и ивенты", "Совместные вылазки"]
         }
       ]
     },
     ua: {
-      title: "Обери свій стиль гри",
-      subtitle: "Обери роль і подивись, з чого простіше почати на сервері.",
-      cta: "Перейти до анкети",
+      title: "Обери свій стиль",
+      subtitle: "Обирай шлях і розвивайся, а ми допоможемо знайти твою роль.",
+      cta: "Подати заявку",
       modes: [
         {
-          title: "Торговець",
-          points: ["Швидкий старт через аукціон", "Ринок активний у прайм-тайм", "Підходить для соло-гри"]
+          title: "Будівельники",
+          points: ["Красиві бази й декор", "Планування й ландшафт", "Проекти для всього сервера"]
         },
         {
-          title: "Будівельник",
-          points: ["Довга прогресія без вайпів", "Підтримка командних проєктів", "Простір для великих баз"]
+          title: "Дослідники",
+          points: ["Нові біоми й структури", "Рідкісні ресурси й лут", "Карта пригод"]
         },
         {
-          title: "Мисливець на босів",
-          points: ["Груповий PvE-контент", "Нові ротації босів", "Постійний привід повернутися ввечері"]
+          title: "Бійці та рейди",
+          points: ["Битви з босами", "Рейди й івенти", "Спільні вилазки"]
         }
       ]
     }
   };
 
   const getLang = () => {
-    const saved = localStorage.getItem("rusland_lang");
+    const saved = localStorage.getItem("Kyora_lang");
     return saved === "ua" ? "ua" : "ru";
   };
 
@@ -58,8 +58,8 @@
 
     useEffect(() => {
       const handleLang = () => setLang(getLang());
-      document.addEventListener("rusland:language-changed", handleLang);
-      return () => document.removeEventListener("rusland:language-changed", handleLang);
+      document.addEventListener("Kyora:language-changed", handleLang);
+      return () => document.removeEventListener("Kyora:language-changed", handleLang);
     }, []);
 
     const data = useMemo(() => copy[lang] || copy.ru, [lang]);
@@ -102,3 +102,6 @@
   const root = window.ReactDOM.createRoot(mountNode);
   root.render(h(Spotlight));
 })();
+
+
+
