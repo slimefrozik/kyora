@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Sitemap: https://slimefrozik.github.io/kyora/sitemap.xml
+Sitemap: https://slimefrozik.github.io/kyora/sitemap.txt
 
 
