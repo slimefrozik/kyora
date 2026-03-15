@@ -9,12 +9,17 @@
 
 const PAGE = document.body.dataset.page || "index";
 const STORAGE_LANG_KEY = "Kyora_lang";
+const STORAGE_THEME_KEY = "Kyora_theme";
 const STORAGE_APPLY_DRAFT_KEY = "Kyora_apply_draft_v1";
 const STORAGE_CHALLENGE_STREAK_KEY = "Kyora_challenge_streak_v1";
 const SUPPORTED_LANGS = ["ru", "ua", "be", "kk"];
 const EMBEDDED_DATA_PATH = "data/content.js";
 const TELEGRAM_DELIVERY = window.Kyora_TELEGRAM || {};
 const LANG_QUERY_PARAM = "lang";
+const THEME_COLORS = {
+  light: "#f7d9bb",
+  dark: "#0f131a"
+};
 let embeddedDataPromise = null;
 
 const state = {
@@ -176,6 +181,56 @@ function setCoreFields() {
 
   document.querySelectorAll("[data-year]").forEach((node) => {
     node.textContent = String(new Date().getFullYear());
+  });
+}
+
+function getStoredTheme() {
+  const saved = localStorage.getItem(STORAGE_THEME_KEY);
+  return saved === "dark" || saved === "light" ? saved : "";
+}
+
+function updateThemeMeta(theme) {
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute("content", theme === "dark" ? THEME_COLORS.dark : THEME_COLORS.light);
+  }
+}
+
+function updateThemeToggleText(theme) {
+  const key = theme === "dark" ? "common.themeDark" : "common.themeLight";
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.textContent = t(key, button.textContent);
+    button.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  });
+}
+
+function applyTheme(theme, options = {}) {
+  const { persist = true } = options;
+  const next = theme === "dark" ? "dark" : "light";
+  document.documentElement.dataset.theme = next;
+  if (persist) {
+    localStorage.setItem(STORAGE_THEME_KEY, next);
+  }
+  updateThemeMeta(next);
+  updateThemeToggleText(next);
+}
+
+function setupThemeToggle() {
+  const saved = getStoredTheme();
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const initial = saved || (prefersDark ? "dark" : "light");
+  applyTheme(initial, { persist: Boolean(saved) });
+
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const current = document.documentElement.dataset.theme || "light";
+      applyTheme(current === "dark" ? "light" : "dark");
+    });
+  });
+
+  document.addEventListener("Kyora:language-changed", () => {
+    const current = document.documentElement.dataset.theme || "light";
+    updateThemeToggleText(current);
   });
 }
 
@@ -1141,6 +1196,7 @@ async function loadDataForPage() {
 
 async function init() {
   document.documentElement.classList.add("js-enabled");
+  setupThemeToggle();
   setupCopyIp();
   setupFeedbackButton();
   setupGalleryLightbox();

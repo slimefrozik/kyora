@@ -39,7 +39,9 @@
                                            "close":  "Закрыть",
                                            "feedback":  "Работа, идеи и баг-репорты",
                                            "feedbackAria":  "Открыть Telegram: работа, идеи и баг-репорты",
-                                           "musicVolume":  "Громкость"
+                                           "musicVolume":  "Громкость",
+                                           "themeLight":  "Тема: светлая",
+                                           "themeDark":  "Тема: тёмная"
                                        },
                             "footer":  {
                                            "rights":  "Kyora",
@@ -267,7 +269,9 @@
                                            "close":  "Закрити",
                                            "feedback":  "Робота, ідеї та баг-репорти",
                                            "feedbackAria":  "Відкрити Telegram: робота, ідеї та баг-репорти",
-                                           "musicVolume":  "Гучність"
+                                           "musicVolume":  "Гучність",
+                                           "themeLight":  "Тема: світла",
+                                           "themeDark":  "Тема: темна"
                                        },
                             "footer":  {
                                            "rights":  "Kyora",
@@ -495,7 +499,9 @@
                                            "close":  "Закрыць",
                                            "feedback":  "Праца, ідэі і баг-рэпарты",
                                            "feedbackAria":  "Адкрыць Telegram: праца, ідэі і баг-рэпарты",
-                                           "musicVolume":  "Гучнасць"
+                                           "musicVolume":  "Гучнасць",
+                                           "themeLight":  "Тэма: светлая",
+                                           "themeDark":  "Тэма: цёмная"
                                        },
                             "footer":  {
                                            "rights":  "Kyora",
@@ -723,7 +729,9 @@
                                            "close":  "Жабу",
                                            "feedback":  "Жұмыс, идеялар және баг-репорттар",
                                            "feedbackAria":  "Telegram ашу: жұмыс, идеялар және баг-репорттар",
-                                           "musicVolume":  "Дыбыс"
+                                           "musicVolume":  "Дыбыс",
+                                           "themeLight":  "Тақырып: ашық",
+                                           "themeDark":  "Тақырып: қараңғы"
                                        },
                             "footer":  {
                                            "rights":  "Kyora",
