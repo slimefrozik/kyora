@@ -28,6 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&family=Unbounded:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -100,6 +101,8 @@
     <script src="assets/app.js" defer></script>
 </head>
 <body data-page="index">
+  <div class="edge-stream edge-stream--left" data-edge-stream="left" aria-hidden="true"></div>
+  <div class="edge-stream edge-stream--right" data-edge-stream="right" aria-hidden="true"></div>
   <header class="site-header">
     <div class="container topbar">
       <a class="brand" href="index.html">
@@ -135,36 +138,83 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <article class="panel reveal">
+    <section class="hero hero--epic">
+      <div class="hero-gallery-bg" aria-hidden="true">
+        <div class="gallery-ring">
+          <img class="gallery-orbit" src="data/image5.png" alt="">
+          <img class="gallery-orbit" src="data/image2.png" alt="">
+          <img class="gallery-orbit" src="data/image3.png" alt="">
+          <img class="gallery-orbit" src="data/image4.png" alt="">
+          <img class="gallery-orbit" src="data/screen1.jpg" alt="">
+          <img class="gallery-orbit" src="data/image5.png" alt="">
+          <img class="gallery-orbit" src="data/image2.png" alt="">
+          <img class="gallery-orbit" src="data/image3.png" alt="">
+          <img class="gallery-orbit" src="data/image4.png" alt="">
+          <img class="gallery-orbit" src="data/screen1.jpg" alt="">
+        </div>
+      </div>
+      <div class="container hero-split">
+        <div class="hero-content">
+          <div class="hero-badge">Private SMP • Whitelist • 1.21.10</div>
           <h1 class="crest" data-i18n="index.title">Kyora — сервер, где хочется остаться надолго</h1>
-          <p class="subtitle" data-i18n="index.subtitle">Каждый найдёт своё место.</p>
-
-          <div class="stat-row">
-            <div class="stat is-row"><strong data-i18n="common.serverIpLabel">IP сервера</strong>: <span data-server-ip>kyora.20tps.ru</span><button class="pill-btn is-compact" type="button" data-copy-ip data-i18n="common.copyIp">Скопировать IP</button></div>
-            <div class="stat"><strong data-i18n="common.versionLabel">Версия</strong>: <span data-server-version>1.21.10</span></div>
-            <div class="stat"><strong data-i18n="common.platformLabel">Платформа</strong>: <span data-server-platform>Java</span></div>
-          </div>
+          <p class="hero-lead" data-i18n="index.subtitle">Каждый найдёт своё место.</p>
 
           <div class="cta-row">
             <a class="pill-btn primary" href="#apply-section" data-i18n="common.apply">Подать заявку</a>
-            <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">Discord (скоро)</a>
             <a class="pill-btn" href="start.html" data-i18n="common.ctaStart">Как зайти?</a>
           </div>
-        </article>
 
-        <aside class="panel reveal">
-          <h2 class="section-title" data-i18n="index.statusCardTitle">Статус мира</h2>
-          <p class="section-subtitle" data-i18n="index.statusCardText">Будет полезно:</p>
-          <div class="stat"><strong data-i18n="common.playersLabel">Игроки</strong>: <span id="server-status">...</span></div>
-
-          <div class="stack" style="margin-top: 14px;">
-            <a class="pill-btn" href="mods.html" data-i18n="common.ctaMods">Полезные моды</a>
-            <a class="pill-btn" href="updates.html" data-i18n="common.ctaUpdates">Что нового</a>
-            <a class="pill-btn" href="challenges.html" data-i18n="nav.challenges">Челленджи</a>
+          <div class="hero-meta">
+            <div class="meta-chip">
+              <span data-i18n="common.serverIpLabel">IP сервера</span>
+              <strong data-server-ip>kyora.20tps.ru</strong>
+              <button class="pill-btn is-compact" type="button" data-copy-ip data-i18n="common.copyIp">Скопировать IP</button>
+            </div>
+            <div class="meta-chip">
+              <span data-i18n="common.versionLabel">Версия</span>
+              <strong data-server-version>1.21.10</strong>
+            </div>
+            <div class="meta-chip">
+              <span data-i18n="common.platformLabel">Платформа</span>
+              <strong data-server-platform>Java</strong>
+            </div>
           </div>
-        </aside>
+
+          <div class="hero-trust">
+            <span class="trust-item">Без доната на силу</span>
+            <span class="trust-item">Whitelist и модерация</span>
+            <span class="trust-item">Оптимизация под пики</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="status-card reveal" data-status-card>
+            <div class="status-head">
+              <span class="status-pill" data-status-pill>...</span>
+              <span class="status-meta" data-server-ip>kyora.20tps.ru</span>
+            </div>
+            <div class="status-grid">
+              <div class="status-item">
+                <span data-i18n="common.playersLabel">Игроки</span>
+                <strong id="server-status" data-status-players>...</strong>
+              </div>
+              <div class="status-item">
+                <span data-i18n="common.versionLabel">Версия</span>
+                <strong data-status-version>1.21.10</strong>
+              </div>
+              <div class="status-item">
+                <span>Пинг</span>
+                <strong data-status-latency>—</strong>
+              </div>
+            </div>
+            <p class="status-motd" data-status-motd>...</p>
+            <div class="status-actions">
+              <a class="pill-btn" href="updates.html" data-i18n="common.ctaUpdates">Что нового</a>
+              <a class="pill-btn" href="rules.html" data-i18n="nav.rules">Правила/FAQ</a>
+              <a class="pill-btn" data-discord-link target="_blank" rel="noopener noreferrer" data-i18n="common.discord">Discord (скоро)</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -180,62 +230,134 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title" data-i18n="index.galleryTitle">Галерея сервера</h2>
-        <p class="section-subtitle" data-i18n="index.gallerySub">Попасть сюда может каждый.</p>
-        <div class="gallery">
-          <figure class="reveal shot-1" data-lightbox-src="data/image5.png" data-lightbox-alt="Вид на поселение в цветущем биоме">
-            <img src="data/image5.png" alt="Вид на поселение в цветущем биоме" loading="lazy">
-          </figure>
-          <figure class="reveal shot-2" data-lightbox-src="data/image2.png" data-lightbox-alt="Дом игрока и стартовая зона">
-            <img src="data/image2.png" alt="Дом игрока и стартовая зона" loading="lazy">
-          </figure>
-          <figure class="reveal shot-3" data-lightbox-src="data/image3.png" data-lightbox-alt="Беседка и прогулочная зона">
-            <img src="data/image3.png" alt="Беседка и прогулочная зона" loading="lazy">
-          </figure>
-          <figure class="reveal shot-4" data-lightbox-src="data/image4.png" data-lightbox-alt="Интерьер декоративной базы">
-            <img src="data/image4.png" alt="Интерьер декоративной базы" loading="lazy">
-          </figure>
-          <figure class="reveal shot-5" data-lightbox-src="data/screen1.jpg" data-lightbox-alt="Пейзаж в цветущем биоме">
-            <img src="data/screen1.jpg" alt="Пейзаж в цветущем биоме" loading="lazy">
-          </figure>
-        </div>
-      </div>
-    </section>
-
-        <section class="section" id="apply-section">
-      <div class="container">
+    <section class="section" id="apply-section">
+      <div class="container split-section">
         <article class="panel reveal">
           <h2 class="section-title" data-i18n="index.applyTitle">Заявка через Telegram</h2>
           <p class="section-subtitle" data-i18n="index.applySub">Открой Telegram-бота и отправь заявку. Discord будет позже.</p>
-          <div class="cta-row" style="margin-top: 14px;">
+          <div class="cta-row">
             <a class="pill-btn primary" data-telegram-link target="_blank" rel="noopener noreferrer" data-i18n="index.telegram">Перейти в Telegram-бота</a>
             <a class="pill-btn" href="#" data-discord-link data-i18n="common.discord">Discord (скоро)</a>
           </div>
           <p class="form-note" data-i18n="index.telegramNote">Если бот не открывается, установи Telegram или используй веб-версию.</p>
         </article>
+        <div class="stack">
+          <article class="card reveal">
+            <h3>Кого ждём</h3>
+            <p>Активных игроков, строителей, исследователей и тех, кто уважает мир и чужой труд.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Почему whitelist</h3>
+            <p>Чтобы сохранить атмосферу, стабильность и нормальный онлайн без токсичности.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Что дальше</h3>
+            <p>После одобрения ты получишь доступ, список модов и инструкцию по старту.</p>
+          </article>
+        </div>
       </div>
     </section>
-        <section class="section" id="seo-content">
+    
+    <section class="section details-section">
       <div class="container">
-        <h1 class="section-title">Kyora — Minecraft сервер</h1>
-        <h2 class="section-subtitle">IP сервера: kyora.20tps.ru • Версия: Java 1.21.10</h2>
-        <p>Kyora — приватный Minecraft сервер с whitelist, модами и регулярными обновлениями. Здесь ценят атмосферное выживание, красивые постройки и совместные проекты.</p>
-        <p>Чтобы начать играть, подайте заявку в whitelist через Telegram-бота и подключитесь по IP: kyora.20tps.ru. Полезные ссылки: <a href="start.html">как зайти</a>, <a href="mods.html">список модов</a>, <a href="rules.html">правила и FAQ</a>.</p>
-        <div class="card-grid" style="margin-top: 16px;">
-          <article class="card reveal">
-            <h3>FAQ: Какой IP у сервера?</h3>
-            <p>IP сервера Kyora: kyora.20tps.ru.</p>
-          </article>
-          <article class="card reveal">
-            <h3>FAQ: Какая версия поддерживается?</h3>
-            <p>Сервер Kyora работает на Java 1.21.10.</p>
-          </article>
-          <article class="card reveal">
-            <h3>FAQ: Как присоединиться?</h3>
-            <p>Оставьте заявку в whitelist через Telegram-бота и подключитесь по IP.</p>
-          </article>
+        <h2 class="section-title" data-i18n="index.moreTitle">Подробнее</h2>
+        <div class="details-stack">
+          <details class="detail-card reveal">
+            <summary data-i18n="index.moreFeatures">Механики сервера</summary>
+            <div class="detail-body">
+              <div class="section-actions">
+                <a class="pill-btn" href="mods.html" data-i18n="common.ctaMods">Полезные моды</a>
+                <a class="pill-btn" href="challenges.html" data-i18n="nav.challenges">Челленджи</a>
+              </div>
+              <div class="feature-grid">
+                <article class="card reveal"><h3 data-i18n="index.f1t">Живой аукцион</h3><p data-i18n="index.f1d">AuctionHouse и TradePost дают понятную экономику и быстрый оборот вещей.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f2t">Прогресс с боссами</h3><p data-i18n="index.f2d">DragonBoss, WorldBoss и MythicMobs создают контент для групп и соло игроков.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f3t">Голос рядом</h3><p data-i18n="index.f3d">PlasmoVoice делает кооп, вылазки и переговоры действительно живыми.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f4t">Честная игра</h3><p data-i18n="index.f4d">GrimAC + CoreProtect: защита от читов и восстановление после конфликтов.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f5t">Удобный старт</h3><p data-i18n="index.f5d">AuthMe, DailyReward и разблокировка рецептов помогают войти в игру без боли.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f6t">Производительность</h3><p data-i18n="index.f6d">Chunky, LagFixer и spark держат стабильность в пиковые часы.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f7t">Дороги и маунты</h3><p data-i18n="index.f7d">roadspeed и WildMountsHorse усиливают наземные путешествия.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f8t">Технологичное выживание</h3><p data-i18n="index.f8d">Chunk loaders и утилиты для автоматизации долгих ферм и цепочек.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f9t">Доступ в Энд по прогрессу</h3><p data-i18n="index.f9d">EndLock добавляет смысл подготовке и командной игре.</p></article>
+              </div>
+            </div>
+          </details>
+          <details class="detail-card reveal">
+            <summary data-i18n="index.moreLoops">Игровые циклы</summary>
+            <div class="detail-body">
+              <div class="loop-grid">
+                <article class="loop-card reveal">
+                  <h3 class="loop-title">Исследуй</h3>
+                  <p class="loop-text">Миры, биомы, редкие структуры и безопасные маршруты между ключевыми точками.</p>
+                </article>
+                <article class="loop-card reveal">
+                  <h3 class="loop-title">Строй</h3>
+                  <p class="loop-text">Большие базы, городские проекты и декоративная архитектура без гринда.</p>
+                </article>
+                <article class="loop-card reveal">
+                  <h3 class="loop-title">Торгуй</h3>
+                  <p class="loop-text">Живая экономика, аукцион и торговые посты, где ценится твой стиль игры.</p>
+                </article>
+                <article class="loop-card reveal">
+                  <h3 class="loop-title">Побеждай</h3>
+                  <p class="loop-text">Боссы, рейды и челленджи, которые дают цель и лут.</p>
+                </article>
+              </div>
+            </div>
+          </details>
+          <details class="detail-card reveal">
+            <summary data-i18n="index.moreGallery">Галерея</summary>
+            <div class="detail-body">
+              <div class="gallery">
+                <figure class="reveal shot-1" data-lightbox-src="data/image5.png" data-lightbox-alt="Вид на поселение в цветущем биоме">
+                  <img src="data/image5.png" alt="Вид на поселение в цветущем биоме" loading="lazy">
+                </figure>
+                <figure class="reveal shot-2" data-lightbox-src="data/image2.png" data-lightbox-alt="Дом игрока и стартовая зона">
+                  <img src="data/image2.png" alt="Дом игрока и стартовая зона" loading="lazy">
+                </figure>
+                <figure class="reveal shot-3" data-lightbox-src="data/image3.png" data-lightbox-alt="Беседка и прогулочная зона">
+                  <img src="data/image3.png" alt="Беседка и прогулочная зона" loading="lazy">
+                </figure>
+                <figure class="reveal shot-4" data-lightbox-src="data/image4.png" data-lightbox-alt="Интерьер декоративной базы">
+                  <img src="data/image4.png" alt="Интерьер декоративной базы" loading="lazy">
+                </figure>
+                <figure class="reveal shot-5" data-lightbox-src="data/screen1.jpg" data-lightbox-alt="Пейзаж в цветущем биоме">
+                  <img src="data/screen1.jpg" alt="Пейзаж в цветущем биоме" loading="lazy">
+                </figure>
+              </div>
+            </div>
+          </details>
+          <details class="detail-card reveal">
+            <summary data-i18n="index.moreFaq">FAQ</summary>
+            <div class="detail-body">
+              <div class="faq-grid">
+                <details class="reveal">
+                  <summary>Какой IP у сервера?</summary>
+                  <p>IP сервера Kyora: <strong>kyora.20tps.ru</strong>.</p>
+                </details>
+                <details class="reveal">
+                  <summary>Какая версия поддерживается?</summary>
+                  <p>Сервер работает на <strong>Java 1.21.10</strong>.</p>
+                </details>
+                <details class="reveal">
+                  <summary>Есть ли вайпы?</summary>
+                  <p>Мы делаем акцент на долгую историю мира и стабильность проектов.</p>
+                </details>
+                <details class="reveal">
+                  <summary>Нужны ли моды?</summary>
+                  <p>Да, список модов доступен на странице «Моды», без них часть функций не работает.</p>
+                </details>
+                <details class="reveal">
+                  <summary>Как быстро получить доступ?</summary>
+                  <p>Заполни заявку через Telegram, и модераторы ответят как можно быстрее.</p>
+                </details>
+                <details class="reveal">
+                  <summary>Есть ли донат?</summary>
+                  <p>Косметика и поддержка сервера возможны, но без преимуществ в бою.</p>
+                </details>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
     </section>

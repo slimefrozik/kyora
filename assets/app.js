@@ -21,6 +21,9 @@ const THEME_COLORS = {
   dark: "#0f131a"
 };
 let embeddedDataPromise = null;
+let edgePlayers = [];
+let edgeResizeTimer = null;
+let heroGalleryReady = false;
 
 const state = {
   lang: "ru",
@@ -133,6 +136,126 @@ function sanitize(value) {
   return String(value || "").trim().replace(/\s+/g, " ");
 }
 
+function decodeHtmlEntities(value) {
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = String(value || "");
+  return textarea.value;
+}
+
+function getEdgeParticleCount() {
+  return Math.max(10, Math.ceil(window.innerHeight / 90));
+}
+
+function buildEdgeParticle(name, containerWidth) {
+  const particle = document.createElement("div");
+  particle.className = "edge-particle";
+  const img = document.createElement("img");
+  img.alt = "";
+  img.loading = "lazy";
+  img.decoding = "async";
+  img.src = `https://mc-heads.net/avatar/${encodeURIComponent(name)}/64`;
+  img.onerror = () => {
+    particle.classList.add("edge-particle--fallback");
+  };
+  particle.append(img);
+
+  const size = 40 + Math.random() * 18;
+  const width = Math.max(80, containerWidth || 116);
+  const x = Math.max(0, Math.random() * (width - size));
+  const duration = 18 + Math.random() * 18;
+  const delay = Math.random() * duration;
+  const alpha = 0.45 + Math.random() * 0.35;
+  const scale = 0.9 + Math.random() * 0.25;
+
+  particle.style.setProperty("--size", `${size.toFixed(0)}px`);
+  particle.style.setProperty("--x", `${x.toFixed(0)}px`);
+  particle.style.setProperty("--dur", `${duration.toFixed(2)}s`);
+  particle.style.setProperty("--delay", `-${delay.toFixed(2)}s`);
+  particle.style.setProperty("--alpha", alpha.toFixed(2));
+  particle.style.setProperty("--scale", scale.toFixed(2));
+  return particle;
+}
+
+function renderEdgeParticles(names) {
+  const streams = Array.from(document.querySelectorAll("[data-edge-stream]"));
+  const list = Array.isArray(names) ? names.filter(Boolean) : [];
+  const hasPlayers = list.length > 0;
+
+  streams.forEach((stream) => {
+    stream.textContent = "";
+    stream.classList.toggle("is-empty", !hasPlayers);
+    if (!hasPlayers) {
+      return;
+    }
+    const count = getEdgeParticleCount();
+    const width = stream.clientWidth;
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < count; i += 1) {
+      const name = list[Math.floor(Math.random() * list.length)];
+      fragment.append(buildEdgeParticle(name, width));
+    }
+    stream.append(fragment);
+  });
+}
+
+function setupEdgeStreams() {
+  renderEdgeParticles(edgePlayers);
+  window.addEventListener("resize", () => {
+    window.clearTimeout(edgeResizeTimer);
+    edgeResizeTimer = window.setTimeout(() => {
+      renderEdgeParticles(edgePlayers);
+    }, 180);
+  });
+}
+
+function updatePlayerEdgeStream(names) {
+  edgePlayers = Array.isArray(names) ? names.filter(Boolean) : [];
+  renderEdgeParticles(edgePlayers);
+}
+
+function shuffle(array) {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+function setupHeroGalleryMarquee() {
+  if (heroGalleryReady) {
+    return;
+  }
+  const ring = document.querySelector(".hero-gallery-bg .gallery-ring");
+  if (!ring) {
+    return;
+  }
+  const sources = Array.from(ring.querySelectorAll("img"))
+    .map((img) => img.getAttribute("src"))
+    .filter(Boolean);
+  if (!sources.length) {
+    return;
+  }
+
+  const order = shuffle(sources);
+  ring.textContent = "";
+  const fragment = document.createDocumentFragment();
+  const buildImg = (src) => {
+    const img = document.createElement("img");
+    img.className = "gallery-orbit";
+    img.src = src;
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    return img;
+  };
+
+  order.forEach((src) => fragment.append(buildImg(src)));
+  order.forEach((src) => fragment.append(buildImg(src)));
+  ring.append(fragment);
+  heroGalleryReady = true;
+}
+
 async function copyText(text) {
   if (navigator.clipboard?.writeText) {
     await navigator.clipboard.writeText(text);
@@ -231,6 +354,16 @@ function setupThemeToggle() {
   document.addEventListener("Kyora:language-changed", () => {
     const current = document.documentElement.dataset.theme || "light";
     updateThemeToggleText(current);
+  });
+}
+
+function setupServiceWorker() {
+  if (!("serviceWorker" in navigator)) {
+    return;
+  }
+
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
   });
 }
 
@@ -426,14 +559,43 @@ function setupReveal() {
 
 async function fetchServerStatus() {
   const statusNode = document.getElementById("server-status");
-  if (!statusNode) {
+  const statusCard = document.querySelector("[data-status-card]");
+  const statusPill = document.querySelector("[data-status-pill]");
+  const statusPlayers = document.querySelector("[data-status-players]");
+  const statusVersion = document.querySelector("[data-status-version]");
+  const statusLatency = document.querySelector("[data-status-latency]");
+  const statusMotd = document.querySelector("[data-status-motd]");
+
+  if (!statusNode && !statusCard && !statusPill && !statusPlayers && !statusVersion && !statusLatency && !statusMotd) {
     return;
   }
 
-  statusNode.textContent = t("common.statusLoading", "РџСЂРѕРІРµСЂСЏРµРј СЃС‚Р°С‚СѓСЃ...");
+  const setText = (node, value) => {
+    if (node) {
+      node.textContent = value;
+    }
+  };
+
+  const setCardState = (state) => {
+    if (!statusCard) {
+      return;
+    }
+    statusCard.classList.toggle("is-online", state === "online");
+    statusCard.classList.toggle("is-offline", state === "offline");
+    statusCard.classList.toggle("is-unknown", state === "unknown");
+  };
+
+  setText(statusNode, t("common.statusLoading", "Проверяем статус..."));
+  setText(statusPill, t("common.statusLoading", "Проверяем статус..."));
+  setText(statusPlayers, "—");
+  setText(statusVersion, CONFIG.minecraftVersion);
+  setText(statusLatency, "—");
+  setText(statusMotd, t("common.statusLoading", "Проверяем статус..."));
+  setCardState("unknown");
 
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 7000);
+  const startedAt = performance.now();
 
   try {
     const response = await fetch(`https://api.mcsrvstat.us/2/${encodeURIComponent(CONFIG.serverIp)}`, {
@@ -447,15 +609,42 @@ async function fetchServerStatus() {
     const data = await response.json();
     const online = Number(data?.players?.online);
     const max = Number(data?.players?.max);
+    const latency = Math.max(0, Math.round(performance.now() - startedAt));
+    const motdRaw = Array.isArray(data?.motd?.clean)
+      ? data.motd.clean.join(" ").replace(/\s+/g, " ").trim()
+      : "";
+    const motd = decodeHtmlEntities(motdRaw);
+    const version = typeof data?.version === "string" && data.version.trim()
+      ? data.version.trim()
+      : CONFIG.minecraftVersion;
+
+    const rawList = Array.isArray(data?.players?.list) ? data.players.list : Array.isArray(data?.players?.sample) ? data.players.sample : [];
+    const playersList = rawList.map((entry) => (typeof entry === "string" ? entry : entry?.name)).filter(Boolean);
 
     if (data?.online === true && Number.isFinite(online) && Number.isFinite(max)) {
-      statusNode.textContent = `${t("common.statusOnline", "РћРЅР»Р°Р№РЅ")}: ${online}/${max}`;
+      const statusText = `${t("common.statusOnline", "Онлайн")}: ${online}/${max}`;
+      setText(statusNode, statusText);
+      setText(statusPill, t("common.statusOnline", "Онлайн"));
+      setText(statusPlayers, `${online}/${max}`);
+      setText(statusVersion, version);
+      setText(statusLatency, `${latency} ms`);
+      setText(statusMotd, motd || t("common.statusOnline", "Онлайн"));
+      setCardState("online");
+      updatePlayerEdgeStream(playersList);
       return;
     }
 
-    statusNode.textContent = t("common.statusOffline", "РћС„С„Р»Р°Р№РЅ");
+    setText(statusNode, t("common.statusOffline", "Оффлайн"));
+    setText(statusPill, t("common.statusOffline", "Оффлайн"));
+    setText(statusMotd, t("common.statusOffline", "Оффлайн"));
+    setCardState("offline");
+    updatePlayerEdgeStream([]);
   } catch (_) {
-    statusNode.textContent = t("common.statusUnknown", "РЎС‚Р°С‚СѓСЃ РЅРµРґРѕСЃС‚СѓРїРµРЅ");
+    setText(statusNode, t("common.statusUnknown", "Статус недоступен"));
+    setText(statusPill, t("common.statusUnknown", "Статус недоступен"));
+    setText(statusMotd, t("common.statusUnknown", "Статус недоступен"));
+    setCardState("unknown");
+    updatePlayerEdgeStream([]);
   } finally {
     window.clearTimeout(timeout);
   }
@@ -513,10 +702,10 @@ function setupGalleryLightbox() {
 
   const close = document.createElement("button");
   close.type = "button";
-  close.textContent = "Г—";
+  close.textContent = "×";
 
   const syncLightboxText = () => {
-    close.setAttribute("aria-label", t("common.close", "Р—Р°РєСЂС‹С‚СЊ"));
+    close.setAttribute("aria-label", t("common.close", "Закрыть"));
   };
 
   const open = (src, alt) => {
@@ -639,7 +828,7 @@ function setupApplicationForm() {
 
   const openTelegramWithMessage = (message) => {
     if (!telegramUsername) {
-      showToast(t("apply.toastNoTelegram", "РќРµ СѓРґР°Р»РѕСЃСЊ РѕРїСЂРµРґРµР»РёС‚СЊ Telegram-Р±РѕС‚Р°."));
+      showToast(t("apply.toastNoTelegram", "Не удалось определить Telegram-бота."));
       return false;
     }
 
@@ -648,7 +837,7 @@ function setupApplicationForm() {
 
     const win = window.open(botUrl.toString(), "_blank", "noopener,noreferrer");
     if (!win) {
-      showToast(t("apply.toastPopupBlocked", "Р‘СЂР°СѓР·РµСЂ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°Р» РЅРѕРІРѕРµ РѕРєРЅРѕ."));
+      showToast(t("apply.toastPopupBlocked", "Браузер заблокировал новое окно."));
       return false;
     }
     return true;
@@ -691,7 +880,7 @@ function setupApplicationForm() {
   const submitToTelegram = async () => {
     if (!form.reportValidity()) {
       if (errorNode) {
-        errorNode.textContent = t("apply.errorInvalid", "РџСЂРѕРІРµСЂСЊС‚Рµ С„РѕСЂРјСѓ.");
+        errorNode.textContent = t("apply.errorInvalid", "Проверьте форму.");
       }
       return;
     }
@@ -704,7 +893,7 @@ function setupApplicationForm() {
     const age = Number(ageRaw);
     if (!Number.isInteger(age) || age < 10 || age > 99) {
       if (errorNode) {
-        errorNode.textContent = t("apply.errorAge", "Р’РѕР·СЂР°СЃС‚ РѕС‚ 10 РґРѕ 99");
+        errorNode.textContent = t("apply.errorAge", "Возраст от 10 до 99");
       }
       return;
     }
@@ -732,19 +921,19 @@ function setupApplicationForm() {
     try {
       const sentDirectly = await sendViaBotApi(message);
       if (sentDirectly) {
-        showToast(t("apply.toastSentDirect", "Р—Р°СЏРІРєР° РѕС‚РїСЂР°РІР»РµРЅР° Р±РѕС‚Сѓ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё."));
+        showToast(t("apply.toastSentDirect", "Заявка отправлена боту автоматически."));
         localStorage.removeItem(STORAGE_APPLY_DRAFT_KEY);
         return;
       }
     } catch (_) {
-      showToast(t("apply.toastDirectFailed", "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РїСЂР°РІРёС‚СЊ РЅР°РїСЂСЏРјСѓСЋ. РћС‚РєСЂРѕСЋ Telegram СЃ С‚РµРєСЃС‚РѕРј."));
+      showToast(t("apply.toastDirectFailed", "Не удалось отправить напрямую. Открою Telegram с текстом."));
     }
 
     try {
       await copyText(message);
-      showToast(t("apply.toastCopied", "РўРµРєСЃС‚ Р·Р°СЏРІРєРё СЃРєРѕРїРёСЂРѕРІР°РЅ. Telegram РѕС‚РєСЂРѕРµС‚СЃСЏ СЃ РіРѕС‚РѕРІС‹Рј СЃРѕРѕР±С‰РµРЅРёРµРј."));
+      showToast(t("apply.toastCopied", "Текст заявки скопирован. Telegram откроется с готовым сообщением."));
     } catch (_) {
-      showToast(t("apply.toastCopyFailed", "РќРµ СѓРґР°Р»РѕСЃСЊ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ С‚РµРєСЃС‚ Р·Р°СЏРІРєРё."));
+      showToast(t("apply.toastCopyFailed", "Не удалось скопировать текст заявки."));
     }
 
     openTelegramWithMessage(message);
@@ -785,7 +974,7 @@ function renderModsPage() {
   category.textContent = "";
   const optionAll = document.createElement("option");
   optionAll.value = "all";
-  optionAll.textContent = t("mods.filterAll", "Р’СЃРµ РєР°С‚РµРіРѕСЂРёРё");
+  optionAll.textContent = t("mods.filterAll", "Все категории");
   category.append(optionAll);
 
   categories.forEach((name) => {
@@ -819,7 +1008,7 @@ function renderModsPage() {
     if (!filtered.length) {
       const empty = document.createElement("p");
       empty.className = "empty-state";
-      empty.textContent = t("mods.empty", "РќРёС‡РµРіРѕ РЅРµ РЅР°Р№РґРµРЅРѕ.");
+      empty.textContent = t("mods.empty", "Ничего не найдено.");
       list.append(empty);
       return;
     }
@@ -853,7 +1042,7 @@ function renderModsPage() {
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.className = "link-btn";
-      link.textContent = t("mods.openModrinth", "РћС‚РєСЂС‹С‚СЊ РЅР° Modrinth");
+      link.textContent = t("mods.openModrinth", "Открыть на Modrinth");
 
       card.append(title, meta, summary, tags, link);
       list.append(card);
@@ -885,7 +1074,7 @@ function renderUpdatesPage() {
   if (!sorted.length) {
     const empty = document.createElement("p");
     empty.className = "empty-state";
-    empty.textContent = t("updates.empty", "РћР±РЅРѕРІР»РµРЅРёР№ РїРѕРєР° РЅРµС‚.");
+    empty.textContent = t("updates.empty", "Обновлений пока нет.");
     list.append(empty);
     return;
   }
@@ -909,7 +1098,7 @@ function renderUpdatesPage() {
 
     const impact = document.createElement("p");
     impact.className = "meta";
-    impact.textContent = `${t("updates.impact", "Р’Р»РёСЏРЅРёРµ")}: ${getLocalizedField(item, "impact")}`;
+    impact.textContent = `${t("updates.impact", "Влияние")}: ${getLocalizedField(item, "impact")}`;
 
     card.append(date, title, summary, impact);
     list.append(card);
@@ -1047,7 +1236,7 @@ function renderPluginsPage() {
   category.textContent = "";
   const optionAll = document.createElement("option");
   optionAll.value = "all";
-  optionAll.textContent = t("plugins.filterAll", "Р’СЃРµ РєР°С‚РµРіРѕСЂРёРё");
+  optionAll.textContent = t("plugins.filterAll", "Все категории");
   category.append(optionAll);
 
   categories.forEach((categoryName) => {
@@ -1093,7 +1282,7 @@ function renderPluginsPage() {
       const cell = document.createElement("td");
       cell.colSpan = 5;
       cell.className = "empty-state";
-      cell.textContent = t("plugins.empty", "РџР»Р°РіРёРЅС‹ РЅРµ РЅР°Р№РґРµРЅС‹.");
+      cell.textContent = t("plugins.empty", "Плагины не найдены.");
       row.append(cell);
       tableBody.append(row);
       return;
@@ -1197,9 +1386,14 @@ async function loadDataForPage() {
 async function init() {
   document.documentElement.classList.add("js-enabled");
   setupThemeToggle();
+  setupServiceWorker();
   setupCopyIp();
   setupFeedbackButton();
   setupGalleryLightbox();
+  setupEdgeStreams();
+  if (PAGE === "index") {
+    setupHeroGalleryMarquee();
+  }
   setCoreFields();
   setupReveal();
   setupApplicationForm();

@@ -1,0 +1,15 @@
+{
+  "name": "Kyora",
+  "short_name": "Kyora",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7d9bb",
+  "theme_color": "#f7d9bb",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
