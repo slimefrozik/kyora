@@ -105,6 +105,48 @@ body {
   overflow-x: hidden;
 }
 
+main,
+footer {
+  position: relative;
+  z-index: 2;
+}
+
+.golem-bg {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+  width: 640px;
+  aspect-ratio: 1;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  filter: blur(0.5px) drop-shadow(0 24px 50px rgba(17, 10, 4, 0.18));
+}
+
+.golem-left {
+  top: 1200px;
+  left: -40px;
+  background-image: url("golemL.png");
+}
+
+.golem-right {
+  top: 55vh;
+  right: -60px;
+  background-image: url("golemR.png");
+}
+
+@media (max-width: 720px) {
+  .golem-bg {
+    opacity: 0.85;
+    width: 420px;
+  }
+
+  .golem-right {
+    top: 70vh;
+  }
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -904,6 +946,14 @@ summary:focus-visible {
   font-size: clamp(1.8rem, 3.3vw, 2.5rem);
   position: relative;
   padding-bottom: 12px;
+}
+
+.legend-name {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
 }
 
 .section-title::after {

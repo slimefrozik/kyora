@@ -95,8 +95,6 @@
       ]
     }
   </script>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="data/telegram-config.js" defer></script>
     <script src="assets/app.js" defer></script>
 </head>
@@ -270,15 +268,13 @@
                 <a class="pill-btn" href="challenges.html" data-i18n="nav.challenges">Челленджи</a>
               </div>
               <div class="feature-grid">
-                <article class="card reveal"><h3 data-i18n="index.f1t">Живой аукцион</h3><p data-i18n="index.f1d">AuctionHouse и TradePost дают понятную экономику и быстрый оборот вещей.</p></article>
-                <article class="card reveal"><h3 data-i18n="index.f2t">Прогресс с боссами</h3><p data-i18n="index.f2d">DragonBoss, WorldBoss и MythicMobs создают контент для групп и соло игроков.</p></article>
-                <article class="card reveal"><h3 data-i18n="index.f3t">Голос рядом</h3><p data-i18n="index.f3d">PlasmoVoice делает кооп, вылазки и переговоры действительно живыми.</p></article>
-                <article class="card reveal"><h3 data-i18n="index.f4t">Честная игра</h3><p data-i18n="index.f4d">GrimAC + CoreProtect: защита от читов и восстановление после конфликтов.</p></article>
-                <article class="card reveal"><h3 data-i18n="index.f5t">Удобный старт</h3><p data-i18n="index.f5d">AuthMe, DailyReward и разблокировка рецептов помогают войти в игру без боли.</p></article>
-                <article class="card reveal"><h3 data-i18n="index.f6t">Производительность</h3><p data-i18n="index.f6d">Chunky, LagFixer и spark держат стабильность в пиковые часы.</p></article>
-                <article class="card reveal"><h3 data-i18n="index.f7t">Дороги и маунты</h3><p data-i18n="index.f7d">roadspeed и WildMountsHorse усиливают наземные путешествия.</p></article>
-                <article class="card reveal"><h3 data-i18n="index.f8t">Технологичное выживание</h3><p data-i18n="index.f8d">Chunk loaders и утилиты для автоматизации долгих ферм и цепочек.</p></article>
-                <article class="card reveal"><h3 data-i18n="index.f9t">Доступ в Энд по прогрессу</h3><p data-i18n="index.f9d">EndLock добавляет смысл подготовке и командной игре.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f1t">Дороги и тракты</h3><p data-i18n="index.f1d">Ускоренные маршруты между базами и городами.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f2t">Лошади+</h3><p data-i18n="index.f2d">Прокачка маунтов, удобные поездки и гонки.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f3t">Мировые боссы</h3><p data-i18n="index.f3d">Групповые битвы и редкие награды.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f4t">Аукцион и торговля</h3><p data-i18n="index.f4d">Публичный рынок для вещей и ресурсов.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f5t">Голос рядом</h3><p data-i18n="index.f5d">Simple Voice для общения по желанию.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f6t">Ограничение элитр</h3><p data-i18n="index.f6d">Верхний мир и Ад без полётов — баланс прогресса.</p></article>
+                <article class="card reveal"><h3 data-i18n="index.f7t">Улучшенные жители</h3><p data-i18n="index.f7d">Больше удобных взаимодействий с жителями.</p></article>
               </div>
             </div>
           </details>
@@ -340,24 +336,41 @@
                   <p>Сервер работает на <strong>Java 1.21.10</strong>.</p>
                 </details>
                 <details class="reveal">
-                  <summary>Есть ли вайпы?</summary>
-                  <p>Мы делаем акцент на долгую историю мира и стабильность проектов.</p>
+                  <summary>Есть ли whitelist?</summary>
+                  <p>Да. Заполни анкету, дождись одобрения и тебя добавят в whitelist.</p>
                 </details>
                 <details class="reveal">
-                  <summary>Нужны ли моды?</summary>
-                  <p>Да, список модов доступен на странице «Моды», без них часть функций не работает.</p>
+                  <summary>Нужны ли моды для входа?</summary>
+                  <p>Нет. Можно играть на чистом клиенте, а рекомендации есть на странице «Моды».</p>
                 </details>
                 <details class="reveal">
-                  <summary>Как быстро получить доступ?</summary>
-                  <p>Заполни заявку через Telegram, и модераторы ответят как можно быстрее.</p>
+                  <summary>Есть ли голосовой чат?</summary>
+                  <p>Есть Simple Voice. Он по желанию — можно играть и без него.</p>
                 </details>
                 <details class="reveal">
-                  <summary>Есть ли донат?</summary>
-                  <p>Косметика и поддержка сервера возможны, но без преимуществ в бою.</p>
+                  <summary>Почему не работают элитры?</summary>
+                  <p>В Верхнем мире и Аду полёты отключены ради баланса прогресса.</p>
                 </details>
               </div>
             </div>
           </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="legends.title">LEGENDS</h2>
+        <p class="section-subtitle" data-i18n="legends.subtitle">Игроки, которые сделали Kyora тем, чем он стал.</p>
+        <div class="card-grid">
+          <article class="card reveal">
+            <h3 class="legend-name" data-i18n="legends.kocsanName">kocsan</h3>
+            <p data-i18n="legends.kocsanDesc">Почти всегда онлайн, помогает держать сервер в тонусе, всегда выручает нуждающихся и оставил после себя множество построек.</p>
+          </article>
+          <article class="card reveal">
+            <h3 class="legend-name" data-i18n="legends.slimefrozikName">slimefrozik</h3>
+            <p data-i18n="legends.slimefrozikDesc">Создатель и основной драйвер Kyora: запуск, баланс, идеи и функции сервера сделаны им.</p>
+          </article>
         </div>
       </div>
     </section>

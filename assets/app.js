@@ -25,6 +25,30 @@ let edgePlayers = [];
 let edgeResizeTimer = null;
 let heroGalleryReady = false;
 
+function safeStorageGet(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (_) {
+    return null;
+  }
+}
+
+function safeStorageSet(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (_) {
+    // Ignore storage access errors (private mode / blocked storage).
+  }
+}
+
+function safeStorageRemove(key) {
+  try {
+    localStorage.removeItem(key);
+  } catch (_) {
+    // Ignore storage access errors.
+  }
+}
+
 const state = {
   lang: "ru",
   i18n: { ru: {}, ua: {}, be: {}, kk: {} },
@@ -308,7 +332,7 @@ function setCoreFields() {
 }
 
 function getStoredTheme() {
-  const saved = localStorage.getItem(STORAGE_THEME_KEY);
+  const saved = safeStorageGet(STORAGE_THEME_KEY);
   return saved === "dark" || saved === "light" ? saved : "";
 }
 
@@ -332,7 +356,7 @@ function applyTheme(theme, options = {}) {
   const next = theme === "dark" ? "dark" : "light";
   document.documentElement.dataset.theme = next;
   if (persist) {
-    localStorage.setItem(STORAGE_THEME_KEY, next);
+    safeStorageSet(STORAGE_THEME_KEY, next);
   }
   updateThemeMeta(next);
   updateThemeToggleText(next);
@@ -446,7 +470,7 @@ function updateLanguageAwareLinks() {
 function setLanguage(language, options = {}) {
   const { syncUrl = true } = options;
   state.lang = SUPPORTED_LANGS.includes(language) ? language : "ru";
-  localStorage.setItem(STORAGE_LANG_KEY, state.lang);
+  safeStorageSet(STORAGE_LANG_KEY, state.lang);
   if (syncUrl) {
     try {
       const url = new URL(window.location.href);
@@ -464,7 +488,7 @@ function setLanguage(language, options = {}) {
 
 function setupLanguageSwitch() {
   const fromUrl = getLangFromUrl();
-  const savedLang = localStorage.getItem(STORAGE_LANG_KEY);
+  const savedLang = safeStorageGet(STORAGE_LANG_KEY);
     state.lang = fromUrl || (savedLang && SUPPORTED_LANGS.includes(savedLang) ? savedLang : "ru");
 
   document.querySelectorAll("[data-lang-switch]").forEach((button) => {
@@ -555,6 +579,25 @@ function setupReveal() {
   }, { threshold: 0.15 });
 
   nodes.forEach((node) => observer.observe(node));
+}
+
+function setupGolemBackground() {
+  if (document.querySelector("[data-golem]")) {
+    return;
+  }
+
+  const left = document.createElement("div");
+  left.className = "golem-bg golem-left";
+  left.setAttribute("aria-hidden", "true");
+  left.dataset.golem = "left";
+
+  const right = document.createElement("div");
+  right.className = "golem-bg golem-right";
+  right.setAttribute("aria-hidden", "true");
+  right.dataset.golem = "right";
+
+  document.body.prepend(right);
+  document.body.prepend(left);
 }
 
 async function fetchServerStatus() {
@@ -779,16 +822,12 @@ function setupApplicationForm() {
   });
 
   const saveDraft = () => {
-    try {
-      localStorage.setItem(STORAGE_APPLY_DRAFT_KEY, JSON.stringify(getDraft()));
-    } catch (_) {
-      // Ignore localStorage quota/availability issues.
-    }
+    safeStorageSet(STORAGE_APPLY_DRAFT_KEY, JSON.stringify(getDraft()));
   };
 
   const restoreDraft = () => {
     try {
-      const raw = localStorage.getItem(STORAGE_APPLY_DRAFT_KEY);
+      const raw = safeStorageGet(STORAGE_APPLY_DRAFT_KEY);
       if (!raw) {
         return;
       }
@@ -922,7 +961,7 @@ function setupApplicationForm() {
       const sentDirectly = await sendViaBotApi(message);
       if (sentDirectly) {
         showToast(t("apply.toastSentDirect", "Заявка отправлена боту автоматически."));
-        localStorage.removeItem(STORAGE_APPLY_DRAFT_KEY);
+        safeStorageRemove(STORAGE_APPLY_DRAFT_KEY);
         return;
       }
     } catch (_) {
@@ -1125,7 +1164,7 @@ function renderChallengesPage() {
   const challengeKey = (item) => `${item.action}|${item.constraint}|${item.context}|${item.difficulty}`;
   let lastChallengeKey = "";
   let lastChallenge = null;
-  let streak = Number(localStorage.getItem(STORAGE_CHALLENGE_STREAK_KEY) || "0");
+  let streak = Number(safeStorageGet(STORAGE_CHALLENGE_STREAK_KEY) || "0");
 
   const getChallengeText = (item) => {
     const parts = [
@@ -1206,7 +1245,7 @@ function renderChallengesPage() {
       return;
     }
     streak += 1;
-    localStorage.setItem(STORAGE_CHALLENGE_STREAK_KEY, String(streak));
+    safeStorageSet(STORAGE_CHALLENGE_STREAK_KEY, String(streak));
     if (streakNode) {
       streakNode.textContent = t("challenges.streak", `Series: ${streak}`).replace("{count}", String(streak));
     }
@@ -1385,6 +1424,7 @@ async function loadDataForPage() {
 
 async function init() {
   document.documentElement.classList.add("js-enabled");
+  setupGolemBackground();
   setupThemeToggle();
   setupServiceWorker();
   setupCopyIp();
